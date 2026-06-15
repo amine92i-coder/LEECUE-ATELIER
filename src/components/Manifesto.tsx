@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Reveal } from "./Reveal";
+import { Reveal, StaggerGroup, StaggerItem } from "./Reveal";
 
 const pillars = [
   {
@@ -46,11 +46,10 @@ export default function Manifesto() {
         </Reveal>
       </div>
 
-      <div className="relative mx-auto mt-20 grid max-w-site gap-px overflow-hidden border-y border-white/5 px-0 md:grid-cols-3">
+      <StaggerGroup className="relative mx-auto mt-20 grid max-w-site gap-px overflow-hidden border-y border-white/5 px-0 md:grid-cols-3">
         {pillars.map((p, i) => (
-          <Reveal
+          <StaggerItem
             key={p.title}
-            delay={i * 110}
             className="bg-coal/60 px-8 py-12 text-center md:px-10"
           >
             <span className="font-serif text-5xl text-gold/30">0{i + 1}</span>
@@ -58,9 +57,9 @@ export default function Manifesto() {
             <p className="mx-auto mt-4 max-w-xs font-sans text-[13px] font-300 leading-relaxed text-bone/55">
               {p.body}
             </p>
-          </Reveal>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerGroup>
     </section>
   );
 }

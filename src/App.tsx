@@ -5,7 +5,9 @@ import Manifesto from "./components/Manifesto";
 import Gallery from "./components/Gallery";
 import Process from "./components/Process";
 import Materials from "./components/Materials";
+import Film from "./components/Film";
 import Maker from "./components/Maker";
+import Pricing from "./components/Pricing";
 import Commission from "./components/Commission";
 import Faq from "./components/Faq";
 import Footer from "./components/Footer";
@@ -21,7 +23,9 @@ export default function App() {
         <Gallery />
         <Process />
         <Materials />
+        <Film />
         <Maker />
+        <Pricing />
         <Commission />
         <Faq />
       </main>

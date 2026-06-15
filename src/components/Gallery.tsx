@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { products, categories, type Category } from "../data/products";
-import { Reveal } from "./Reveal";
+import { Reveal, StaggerGroup, StaggerItem } from "./Reveal";
 
 export default function Gallery() {
   const [filter, setFilter] = useState<Category | "All">("All");
@@ -45,11 +45,14 @@ export default function Gallery() {
         </Reveal>
 
         {/* Grid */}
-        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {shown.map((p, i) => (
-            <Reveal
+        <StaggerGroup
+          key={filter}
+          className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          stagger={0.08}
+        >
+          {shown.map((p) => (
+            <StaggerItem
               key={p.id}
-              delay={(i % 3) * 90}
               className="group relative overflow-hidden bg-charcoal"
             >
               <div className="relative aspect-[4/5] overflow-hidden">
@@ -80,9 +83,9 @@ export default function Gallery() {
                   </p>
                 </div>
               </div>
-            </Reveal>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
 
         <Reveal delay={120} className="mt-16 flex flex-col items-center gap-6 text-center">
           <div className="hairline w-40" />

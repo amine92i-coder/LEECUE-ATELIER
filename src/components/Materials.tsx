@@ -1,5 +1,5 @@
 import { leathers } from "../data/products";
-import { Reveal } from "./Reveal";
+import { Reveal, StaggerGroup, StaggerItem } from "./Reveal";
 
 const swatches: Record<string, string> = {
   "Himalayan Crocodile":
@@ -29,11 +29,10 @@ export default function Materials() {
           </p>
         </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden border border-white/8 bg-white/5 sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerGroup className="mt-16 grid grid-cols-1 gap-px overflow-hidden border border-white/8 bg-white/5 sm:grid-cols-2 lg:grid-cols-3">
           {leathers.map((l, i) => (
-            <Reveal
+            <StaggerItem
               key={l.name}
-              delay={(i % 3) * 90}
               className="group relative bg-coal p-8 transition-colors duration-500 hover:bg-graphite"
             >
               <div className="flex items-center justify-between">
@@ -50,9 +49,9 @@ export default function Materials() {
               <p className="mt-3 font-sans text-[13px] font-300 leading-relaxed text-bone/55">
                 {l.blurb}
               </p>
-            </Reveal>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
       </div>
     </section>
   );

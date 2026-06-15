@@ -1,5 +1,7 @@
 import { useRef, useState, type ChangeEvent, type DragEvent, type FormEvent } from "react";
-import { Reveal } from "./Reveal";
+import { motion, useReducedMotion } from "framer-motion";
+import { Reveal, EASE_SILK } from "./Reveal";
+import { Check, Close, Upload } from "./Icons";
 
 const productTypes = ["Key Case", "Phone Case", "Charm / Lanyard", "Something Else"];
 const leatherOptions = [
@@ -25,6 +27,7 @@ const reassurance = [
 ];
 
 export default function Commission() {
+  const reduce = useReducedMotion();
   const [productType, setProductType] = useState("Key Case");
   const [leather, setLeather] = useState("Himalayan Crocodile");
   const [previews, setPreviews] = useState<Preview[]>([]);
@@ -110,7 +113,7 @@ export default function Commission() {
             <ul className="mt-10 space-y-4">
               {reassurance.map((r) => (
                 <li key={r} className="flex items-start gap-3">
-                  <span className="mt-1 text-gold">✦</span>
+                  <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-gold" />
                   <span className="font-sans text-[13px] font-300 leading-relaxed text-bone/70">
                     {r}
                   </span>
@@ -143,9 +146,30 @@ export default function Commission() {
         <Reveal delay={80}>
           {submitted ? (
             <div className="flex min-h-[420px] flex-col items-center justify-center border border-gold/30 bg-ink/40 px-8 py-20 text-center">
-              <span className="grid h-16 w-16 place-items-center rounded-full border border-gold/50 text-3xl text-gold">
-                ✦
-              </span>
+              <motion.span
+                className="grid h-16 w-16 place-items-center rounded-full border border-gold/50 text-gold shadow-[0_0_50px_-12px_rgba(201,161,78,0.7)]"
+                initial={reduce ? false : { scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 240, damping: 15, delay: 0.05 }}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                  className="h-7 w-7"
+                >
+                  <motion.path
+                    d="m4.5 12.75 6 6 9-13.5"
+                    initial={reduce ? false : { pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.5, ease: EASE_SILK, delay: 0.28 }}
+                  />
+                </svg>
+              </motion.span>
               <h3 className="mt-7 font-serif text-3xl text-bone">
                 Your commission is received.
               </h3>
@@ -274,7 +298,7 @@ export default function Commission() {
                     className="hidden"
                     onChange={(e) => addFiles(e.target.files)}
                   />
-                  <span className="text-2xl text-gold/70">⤓</span>
+                  <Upload className="h-7 w-7 text-gold/70" />
                   <span className="mt-3 font-sans text-[13px] text-bone/70">
                     Drag & drop images here, or{" "}
                     <span className="text-gold underline underline-offset-4">browse</span>
@@ -300,9 +324,9 @@ export default function Commission() {
                           type="button"
                           onClick={() => removePreview(p.id)}
                           aria-label={`Remove ${p.name}`}
-                          className="absolute right-1 top-1 grid h-6 w-6 place-items-center bg-ink/80 text-bone opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                          className="absolute right-1 top-1 grid h-6 w-6 place-items-center bg-ink/80 text-bone opacity-0 transition-opacity duration-300 hover:text-gold group-hover:opacity-100"
                         >
-                          ✕
+                          <Close className="h-3.5 w-3.5" />
                         </button>
                       </div>
                     ))}

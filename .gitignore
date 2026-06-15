@@ -20,3 +20,6 @@ pnpm-debug.log*
 
 # local tooling (absolute machine paths, not portable)
 .claude
+
+# local-only: pre-optimization source video (superseded by all-intra film-wrap.mp4)
+public/generated/film-wrap-source-longgop.mp4

@@ -259,6 +259,60 @@ export const processSteps: Step[] = [
   },
 ];
 
+export interface Tier {
+  name: string;
+  origin: string;
+  from: string;
+  blurb: string;
+  features: string[];
+  featured?: boolean;
+}
+
+export const tiers: Tier[] = [
+  {
+    name: "Fine Calf",
+    origin: "The Entry to Bespoke",
+    from: "$190",
+    blurb:
+      "Vegetable-tanned French and box calf in any colour we can mix — the purest canvas for a first bespoke piece.",
+    features: [
+      "Full-grain French / box calf",
+      "Any paint-matched colour",
+      "Hand-painted edges & saddle-stitch",
+      "Foil or blind monogram",
+    ],
+  },
+  {
+    name: "Rare Exotic",
+    origin: "Most Commissioned",
+    from: "$440",
+    blurb:
+      "Python, ostrich or glazed alligator, hand-finished tile by tile — texture you feel the moment you lift your key.",
+    features: [
+      "Python · ostrich · alligator",
+      "Hand-glazed or matte finish",
+      "Contrast thread & edge paint",
+      "Embroidered name or initials",
+      "Hardware in gold or palladium",
+    ],
+    featured: true,
+  },
+  {
+    name: "Himalayan Crocodile",
+    origin: "The Pinnacle",
+    from: "$920",
+    blurb:
+      "The rarest natural crocodile crust, hand-painted to its signature snow-and-smoke marbling. No two are alike.",
+    features: [
+      "Unbleached Himalayan crust",
+      "Bespoke marbled hand-painting",
+      "Sterling or solid-gold hardware",
+      "Crest, cloisonné or stone inlay",
+      "Presented in a signature box",
+    ],
+  },
+];
+
 export interface Faq {
   q: string;
   a: string;

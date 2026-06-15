@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { processSteps } from "../data/products";
-import { Reveal } from "./Reveal";
+import { Reveal, StaggerGroup, StaggerItem } from "./Reveal";
 
 export default function Process() {
   const [imgOk, setImgOk] = useState(true);
@@ -44,9 +44,9 @@ export default function Process() {
             </p>
           </Reveal>
 
-          <div className="mt-12 flex flex-col">
-            {processSteps.map((s, i) => (
-              <Reveal key={s.index} delay={i * 80}>
+          <StaggerGroup className="mt-12 flex flex-col" stagger={0.09}>
+            {processSteps.map((s) => (
+              <StaggerItem key={s.index}>
                 <div className="group flex gap-7 border-t border-white/8 py-8 transition-colors duration-500 hover:border-gold/30">
                   <span className="font-serif text-3xl text-gold/50 transition-colors duration-500 group-hover:text-gold">
                     {s.index}
@@ -58,9 +58,9 @@ export default function Process() {
                     </p>
                   </div>
                 </div>
-              </Reveal>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGroup>
 
           <Reveal delay={120}>
             <a href="#commission" className="btn-solid mt-10">

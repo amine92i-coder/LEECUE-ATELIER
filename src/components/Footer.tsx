@@ -1,4 +1,6 @@
 import { useState, type FormEvent } from "react";
+import { Reveal } from "./Reveal";
+import { ArrowRight, Spark } from "./Icons";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -14,16 +16,16 @@ export default function Footer() {
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
 
       {/* CTA band */}
-      <div className="mx-auto max-w-site px-6 py-20 text-center lg:px-10">
+      <Reveal className="mx-auto max-w-site px-6 py-20 text-center lg:px-10">
         <span className="eyebrow">Your car deserves it</span>
-        <h2 className="mx-auto mt-5 max-w-3xl font-serif text-[clamp(2rem,5vw,3.6rem)] leading-[1.06] text-bone">
+        <h2 className="mx-auto mt-5 max-w-3xl font-serif text-[clamp(2rem,5vw,3.6rem)] leading-[1.06] text-bone text-balance">
           Let's dress your key in something
           <span className="italic text-gold-gradient"> unforgettable.</span>
         </h2>
         <a href="#commission" className="btn-solid mt-9">
           <span>Commission a Piece</span>
         </a>
-      </div>
+      </Reveal>
 
       <div className="hairline mx-auto max-w-site" />
 
@@ -51,6 +53,7 @@ export default function Footer() {
             ["Collection", "#collection"],
             ["Bespoke Process", "#process"],
             ["Leathers", "#leathers"],
+            ["Investment", "#pricing"],
             ["The Maker", "#maker"],
           ]}
         />
@@ -70,8 +73,9 @@ export default function Footer() {
             New skins, rare hides and atelier stories — occasionally, never often.
           </p>
           {done ? (
-            <p className="mt-4 font-serif text-lg italic text-gold-gradient">
-              Welcome to the list. ✦
+            <p className="mt-4 flex items-center gap-2 font-serif text-lg italic text-gold-gradient">
+              Welcome to the list.
+              <Spark className="h-3.5 w-3.5 text-gold" />
             </p>
           ) : (
             <form onSubmit={subscribe} className="mt-4 flex border border-white/12">
@@ -85,9 +89,9 @@ export default function Footer() {
               <button
                 type="submit"
                 aria-label="Subscribe"
-                className="px-5 text-gold transition-colors hover:bg-gold hover:text-ink"
+                className="grid place-items-center px-5 text-gold transition-colors hover:bg-gold hover:text-ink"
               >
-                →
+                <ArrowRight className="h-4 w-4" />
               </button>
             </form>
           )}

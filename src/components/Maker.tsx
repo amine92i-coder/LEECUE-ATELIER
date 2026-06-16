@@ -44,33 +44,39 @@ export default function Maker() {
           <Reveal delay={120}>
             <div className="mt-7 space-y-5 font-sans text-[15px] font-300 leading-relaxed text-bone/65">
               <p>
-                LEECUE began at a single workbench, with a craftsman who could not
-                find a key case worthy of the cars he loved — so he made his own.
-                Word travelled. Friends asked. Then strangers.
+                LEECUE ATELIER is the work of Leon — Li Qin — who has sat at the
+                same bench in Wuhan since 2015. Trained under master Lu Yonggang,
+                he is a third-generation inheritor of Wuhan leather moulding and
+                carving, a craft recognised as Intangible Cultural Heritage.
               </p>
               <p>
-                Today, that same pair of hands still cuts, skives, saddle-stitches
-                and burnishes every commission that leaves the atelier. There are
-                no machines here pretending to be people — only leather, waxed
-                linen thread, patience, and a refusal to ship anything short of
-                perfect.
+                A decade on, that same pair of hands still cuts, skives,
+                saddle-stitches and burnishes every commission that leaves the
+                studio. There are no machines here pretending to be people — only
+                the finest exotic skins, waxed linen thread, patience, and a
+                refusal to ship anything short of perfect.
               </p>
             </div>
           </Reveal>
           <Reveal delay={200}>
             <div className="mt-9 flex items-center gap-5">
               <div className="hairline w-16" />
-              <span className="font-serif text-2xl italic text-gold-gradient">
-                LEECUE Atelier
-              </span>
+              <div className="flex flex-col">
+                <span className="font-serif text-2xl italic text-gold-gradient">
+                  Leon · 李勤
+                </span>
+                <span className="mt-1 text-[10px] uppercase tracking-wide2 text-smoke">
+                  Founder · Intangible Cultural Heritage, Wuhan
+                </span>
+              </div>
             </div>
           </Reveal>
 
           <Reveal delay={260} className="mt-10 grid grid-cols-3 gap-4">
             {[
-              ["2–4", "Weeks per piece"],
-              ["20+", "Marques crafted"],
-              ["1", "Artisan, start to finish"],
+              ["2015", "The atelier, founded"],
+              ["3rd", "Generation inheritor"],
+              ["200+", "Cities worldwide"],
             ].map(([n, l]) => (
               <div key={l} className="border-l border-gold/30 pl-4">
                 <div className="font-serif text-3xl text-bone">{n}</div>

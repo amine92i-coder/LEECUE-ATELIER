@@ -86,7 +86,7 @@ export default function Hero() {
               className="h-px w-12 bg-gold/70"
             />
             <span className="eyebrow">
-              Hand-Stitched · Made to Order · Worldwide
+              Since 2015 · Hand-Stitched · Worldwide
             </span>
           </motion.div>
 
@@ -106,9 +106,10 @@ export default function Hero() {
             variants={item}
             className="mt-8 max-w-xl font-sans text-[15px] font-300 leading-relaxed text-bone/70"
           >
-            Hand-stitched key cases, phone cases and accessories in Himalayan
-            crocodile, python and fine French calf — patterned to your exact key,
-            personalised to your taste, and built to order by a single artisan.
+            Hand-stitched key cases, phone cases and accessories in French
+            crocodile, Klein Karoo ostrich, python and fine Sully goatskin —
+            patterned to your exact key, personalised to your taste, and built to
+            order by a single master craftsman.
           </motion.p>
 
           <motion.div

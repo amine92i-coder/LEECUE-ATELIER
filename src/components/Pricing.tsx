@@ -1,4 +1,9 @@
-import { tiers } from "../data/products";
+import {
+  tiers,
+  limitedEdition,
+  oneOfOne,
+  accessories,
+} from "../data/products";
 import { Reveal, StaggerGroup, StaggerItem } from "./Reveal";
 import { Check } from "./Icons";
 
@@ -77,11 +82,32 @@ export default function Pricing() {
                 ))}
               </ul>
 
+              <div className="mt-7 border-t border-white/8 pt-6">
+                <span className="text-[10px] uppercase tracking-luxe text-smoke">
+                  Priced by skin
+                </span>
+                <ul className="mt-3.5 flex flex-col gap-2.5">
+                  {t.prices.map((p) => (
+                    <li
+                      key={p.skin}
+                      className="flex items-baseline justify-between gap-3"
+                    >
+                      <span className="font-sans text-[12px] font-300 leading-snug text-bone/65">
+                        {p.skin}
+                      </span>
+                      <span className="whitespace-nowrap font-serif text-[16px] text-gold-gradient">
+                        {p.price}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-8 flex-grow" />
+
               <a
                 href="#commission"
-                className={`mt-9 ${
-                  t.featured ? "btn-solid" : "btn-gold"
-                } w-full`}
+                className={`${t.featured ? "btn-solid" : "btn-gold"} w-full`}
               >
                 <span>Commission in {t.name}</span>
               </a>
@@ -89,15 +115,97 @@ export default function Pricing() {
           ))}
         </StaggerGroup>
 
+        {/* Limited Edition + One of One */}
+        <StaggerGroup
+          className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2"
+          stagger={0.12}
+        >
+          <StaggerItem className="group relative flex flex-col border border-white/10 bg-ink/30 p-8 transition-colors duration-500 hover:border-gold/40 lg:flex-row lg:items-center lg:justify-between lg:p-9">
+            <div className="max-w-xs">
+              <span className="eyebrow !text-bone/50">
+                {limitedEdition.origin}
+              </span>
+              <h3 className="mt-2 font-serif text-[1.8rem] leading-tight text-bone">
+                {limitedEdition.name}
+              </h3>
+              <p className="mt-4 font-sans text-[13px] font-300 leading-relaxed text-bone/60">
+                {limitedEdition.blurb}
+              </p>
+            </div>
+            <ul className="mt-6 flex flex-col gap-2.5 lg:mt-0 lg:min-w-[12rem] lg:pl-8">
+              {limitedEdition.prices?.map((p) => (
+                <li
+                  key={p.skin}
+                  className="flex items-baseline justify-between gap-3"
+                >
+                  <span className="font-sans text-[12px] font-300 leading-snug text-bone/65">
+                    {p.skin}
+                  </span>
+                  <span className="whitespace-nowrap font-serif text-[16px] text-gold-gradient">
+                    {p.price}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </StaggerItem>
+
+          <StaggerItem className="group relative flex flex-col justify-between border border-gold/30 bg-graphite/40 p-8 transition-colors duration-500 hover:border-gold/55 lg:p-9">
+            <div>
+              <span className="eyebrow !text-gold/70">{oneOfOne.origin}</span>
+              <h3 className="mt-2 font-serif text-[1.8rem] leading-tight text-bone">
+                {oneOfOne.name}
+              </h3>
+              <p className="mt-4 max-w-sm font-sans text-[13px] font-300 leading-relaxed text-bone/60">
+                {oneOfOne.blurb}
+              </p>
+            </div>
+            <div className="mt-7 flex items-baseline gap-2">
+              <span className="text-[11px] uppercase tracking-wide2 text-smoke">
+                from
+              </span>
+              <span className="font-serif text-[2.6rem] leading-none text-gold-gradient">
+                {oneOfOne.from}
+              </span>
+            </div>
+          </StaggerItem>
+        </StaggerGroup>
+
+        {/* Accessories */}
+        <Reveal
+          delay={80}
+          className="mt-6 border border-white/8 bg-coal/40 p-8 lg:p-9"
+        >
+          <span className="eyebrow !text-bone/50">Beyond the Key</span>
+          <div className="mt-6 grid grid-cols-1 gap-x-10 gap-y-px sm:grid-cols-2 lg:grid-cols-3">
+            {accessories.map((a) => (
+              <div
+                key={a.name}
+                className="flex items-baseline justify-between gap-4 border-b border-white/6 py-4"
+              >
+                <div>
+                  <p className="font-sans text-[13px] text-bone/80">{a.name}</p>
+                  {a.note && (
+                    <p className="mt-0.5 font-sans text-[11px] font-300 leading-snug text-bone/45">
+                      {a.note}
+                    </p>
+                  )}
+                </div>
+                <span className="whitespace-nowrap font-serif text-[16px] text-gold-gradient">
+                  {a.price}
+                </span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
         <Reveal
           delay={120}
           className="mt-12 flex flex-col items-center gap-3 text-center"
         >
           <p className="font-sans text-[13px] font-300 tracking-wide text-bone/50">
-            Phone cases from{" "}
-            <span className="text-bone/80">$160</span> · Charms &amp; lanyards from{" "}
-            <span className="text-bone/80">$90</span> · Matched sets &amp; full
-            interiors quoted on request.
+            Made to order, booking required · a{" "}
+            <span className="text-bone/80">rush service</span> is available for
+            +30% · matched sets &amp; full interiors quoted on request.
           </p>
           <p className="max-w-md font-serif text-lg italic text-bone/60">
             No deposit is taken until you have approved your design and quote.

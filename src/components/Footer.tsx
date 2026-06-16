@@ -43,8 +43,16 @@ export default function Footer() {
           </div>
           <p className="mt-5 max-w-xs font-sans text-[13px] font-300 leading-relaxed text-bone/50">
             Bespoke hand-stitched leather for the world's finest automobiles.
-            Made to order, one piece at a time.
+            Made to order, one piece at a time, in Wuhan since 2015.
           </p>
+          <div className="mt-5 space-y-1.5 font-sans text-[12px] font-300 text-bone/45">
+            <p>No. 7 Baocheng Road, Jiang'an District, Wuhan</p>
+            <p>
+              WeChat <span className="text-bone/70">LEECUE</span> · Douyin{" "}
+              <span className="text-bone/70">勤艺笃造</span> · 小红书{" "}
+              <span className="text-bone/70">勤艺笃造</span>
+            </p>
+          </div>
         </div>
 
         <FooterCol
@@ -62,8 +70,8 @@ export default function Footer() {
           links={[
             ["Commission", "#commission"],
             ["Questions", "#faq"],
-            ["WhatsApp", "#"],
-            ["Instagram", "#"],
+            ["Instagram", "https://instagram.com/leecueleather"],
+            ["Email Us", "mailto:lee.q.cool@gmail.com"],
           ]}
         />
 
@@ -117,16 +125,22 @@ function FooterCol({ title, links }: { title: string; links: [string, string][] 
     <div>
       <h4 className="text-[10px] uppercase tracking-luxe text-smoke">{title}</h4>
       <ul className="mt-4 space-y-3">
-        {links.map(([label, href]) => (
-          <li key={label}>
-            <a
-              href={href}
-              className="font-sans text-[13px] text-bone/60 transition-colors duration-300 hover:text-gold"
-            >
-              {label}
-            </a>
-          </li>
-        ))}
+        {links.map(([label, href]) => {
+          const external = href.startsWith("http");
+          return (
+            <li key={label}>
+              <a
+                href={href}
+                {...(external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                className="font-sans text-[13px] text-bone/60 transition-colors duration-300 hover:text-gold"
+              >
+                {label}
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

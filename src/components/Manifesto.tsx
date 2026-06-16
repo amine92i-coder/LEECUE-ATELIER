@@ -7,8 +7,8 @@ const pillars = [
     body: "Every commission is cut, skived, saddle-stitched and burnished by a single artisan — never a production line.",
   },
   {
-    title: "Genuine Exotics",
-    body: "Himalayan crocodile, glazed alligator, python and ostrich, sourced from established and responsible tanneries.",
+    title: "Hermès-Grade Hides",
+    body: "French Sully goatskin, Italian Pomari and Bonaudo calf, HCP crocodile and Klein Karoo ostrich — the very tanneries behind the great maisons.",
   },
   {
     title: "Endlessly Yours",

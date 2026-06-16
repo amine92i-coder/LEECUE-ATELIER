@@ -5,12 +5,14 @@ import { Check, Close, Upload } from "./Icons";
 
 const productTypes = ["Key Case", "Phone Case", "Charm / Lanyard", "Something Else"];
 const leatherOptions = [
-  "Himalayan Crocodile",
-  "Glazed Alligator",
-  "Natural Python",
-  "Ostrich & Exotics",
-  "French Calf",
-  "Hair-On Hide",
+  "Crocodile",
+  "Ostrich",
+  "Python",
+  "Lizard",
+  "Deerskin",
+  "Goatskin",
+  "Calfskin",
+  "Suede",
   "Help Me Choose",
 ];
 
@@ -29,7 +31,7 @@ const reassurance = [
 export default function Commission() {
   const reduce = useReducedMotion();
   const [productType, setProductType] = useState("Key Case");
-  const [leather, setLeather] = useState("Himalayan Crocodile");
+  const [leather, setLeather] = useState("Crocodile");
   const [previews, setPreviews] = useState<Preview[]>([]);
   const [dragging, setDragging] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -128,14 +130,22 @@ export default function Commission() {
                 Prefer to chat?
               </span>
               <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 font-sans text-[13px] text-bone/70">
-                <a href="#" className="transition-colors hover:text-gold">
-                  WhatsApp
+                <span>
+                  WeChat <span className="text-bone/90">LEECUE</span>
+                </span>
+                <a
+                  href="https://instagram.com/leecueleather"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-gold"
+                >
+                  Instagram @LeecueLeather
                 </a>
-                <a href="#" className="transition-colors hover:text-gold">
-                  Instagram @leecue.atelier
-                </a>
-                <a href="#" className="transition-colors hover:text-gold">
-                  hello@leecue-atelier.com
+                <a
+                  href="mailto:lee.q.cool@gmail.com"
+                  className="transition-colors hover:text-gold"
+                >
+                  lee.q.cool@gmail.com
                 </a>
               </div>
             </div>

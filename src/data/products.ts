@@ -193,40 +193,52 @@ export interface Leather {
 
 export const leathers: Leather[] = [
   {
-    name: "Himalayan Crocodile",
-    origin: "The Rarest Crust",
+    name: "Sully Goatskin",
+    origin: "Tannerie Sully · France",
     blurb:
-      "An unbleached natural crocodile hide, hand-finished to its signature snow-and-smoke marbling. No two are alike.",
+      "The fine French chèvre that Hermès builds its small leather goods upon — tight-grained, feather-light and quietly luxurious.",
   },
   {
-    name: "Glazed Alligator",
-    origin: "Louisiana",
+    name: "Pomari Calfskin",
+    origin: "Pomari · Italy",
     blurb:
-      "Hand-glazed to a deep mirror shine that catches the light with every tile of the skin.",
+      "Italian box calf with a deep, glassy finish and a structure that holds a crisp, knife-clean edge for a lifetime.",
   },
   {
-    name: "Natural Python",
-    origin: "Southeast Asia",
+    name: "Bonaudo Suede Calf",
+    origin: "Bonaudo · Italy",
     blurb:
-      "Supple, light-shifting scales — from matte black mamba to full iridescent aurora.",
+      "A reverse-velvet calfskin from Milan's Bonaudo — matte, tactile and warm the moment you lift your key.",
   },
   {
-    name: "Ostrich & Exotics",
-    origin: "Karoo",
+    name: "Bonaudo Deerskin",
+    origin: "Bonaudo · Italy",
     blurb:
-      "Quill-marked ostrich, ostrich-leg, and lizard for those who want texture you can feel.",
+      "Supple Italian deerskin with a soft pebbled hand that only grows more beautiful the more it is carried.",
   },
   {
-    name: "Box & French Calf",
-    origin: "Tannerie, France",
+    name: "HCP Lizard",
+    origin: "HCP · France",
     blurb:
-      "Vegetable-tanned full-grain calf in any colour we can mix — the canvas for true bespoke.",
+      "French-tanned lizard — including our glow and electroplated finishes — small scales with extraordinary presence.",
   },
   {
-    name: "Hair-On Hide",
-    origin: "Selected Ranches",
+    name: "ILW Python",
+    origin: "ILW · Indonesia",
     blurb:
-      "Cowhide and pony with the hair left on — for cases with real character and warmth.",
+      "Light-shifting python, from matte black to full iridescence — supple, scaled and alive in the hand.",
+  },
+  {
+    name: "HCP Crocodile",
+    origin: "HCP · France",
+    blurb:
+      "Pure water-dyed French crocodile, finished without coating so the skin breathes and the colour runs true to the hide.",
+  },
+  {
+    name: "Klein Karoo Ostrich",
+    origin: "Klein Karoo · South Africa",
+    blurb:
+      "South African quill ostrich — three to five times the tensile strength of cowhide, raised in its signature follicles.",
   },
 ];
 
@@ -239,25 +251,30 @@ export interface Step {
 export const processSteps: Step[] = [
   {
     index: "I",
-    title: "Send Us Your Key",
-    body: "Tell us your exact make, model and key fob — or simply send a photo. We pattern every case to the millimetre so your buttons stay flush and clickable.",
+    title: "Reserve Your Commission",
+    body: "Every piece is made to order — nothing is kept in stock, so your place is booked first. Send us your exact make, model and key fob, or simply a photo, and we pattern the case to the millimetre.",
   },
   {
     index: "II",
-    title: "Choose Your Skin",
-    body: "Select from Himalayan crocodile, alligator, python, ostrich or fine French calf in any colour. Mix bodies, edges and stitching to your taste.",
+    title: "Compose Every Detail",
+    body: "Choose your skin, colour family, stitch colour, edge paint and hardware finish, the name or initials, even the strap and keyring leather. Nine decisions, each one yours — add a flag, a crest, a lucky number.",
   },
   {
     index: "III",
-    title: "Make It Yours",
-    body: "Add your name, initials or a date in foil or embroidery. Match your car's paint, add a flag, a crest, a lucky number — anything is possible.",
+    title: "Watch It Take Shape",
+    body: "A single artisan cuts, skives, saddle-stitches and burnishes your piece by hand over several days. We share progress films and livestreams as it grows — every detail locks the moment cutting begins.",
   },
   {
     index: "IV",
-    title: "Hand-Built To Order",
-    body: "A single artisan cuts, skives, saddle-stitches and burnishes your piece by hand over several days. Then it is inspected, boxed and shipped worldwide.",
+    title: "Sealed & Shipped Worldwide",
+    body: "Finished with four gold seals and presented in a signature LEECUE box, then dispatched fully tracked by SF Express — to 200+ cities across China and to collectors on five continents.",
   },
 ];
+
+export interface TierPrice {
+  skin: string;
+  price: string;
+}
 
 export interface Tier {
   name: string;
@@ -265,51 +282,135 @@ export interface Tier {
   from: string;
   blurb: string;
   features: string[];
+  prices: TierPrice[];
   featured?: boolean;
 }
 
 export const tiers: Tier[] = [
   {
-    name: "Fine Calf",
+    name: "Minimalist",
     origin: "The Entry to Bespoke",
-    from: "$190",
+    from: "$132.9",
     blurb:
-      "Vegetable-tanned French and box calf in any colour we can mix — the purest canvas for a first bespoke piece.",
+      "One skin, cleanly cut and hand-finished — the purest expression of the craft, with nothing to distract from the leather itself.",
     features: [
-      "Full-grain French / box calf",
-      "Any paint-matched colour",
-      "Hand-painted edges & saddle-stitch",
-      "Foil or blind monogram",
+      "A single skin, cleanly cut",
+      "Hand saddle-stitched & burnished",
+      "Edge paint in your colour",
+      "Hardware in gold or palladium",
+    ],
+    prices: [
+      { skin: "Calf · Goatskin", price: "$132.9" },
+      { skin: "Lizard · Python · Deer", price: "$288.2" },
+      { skin: "Crocodile · Ostrich", price: "$510.1" },
     ],
   },
   {
-    name: "Rare Exotic",
+    name: "Personalised",
     origin: "Most Commissioned",
-    from: "$440",
+    from: "$199.5",
     blurb:
-      "Python, ostrich or glazed alligator, hand-finished tile by tile — texture you feel the moment you lift your key.",
+      "Your name, your colours, your car. Everything from the Minimalist, made unmistakably yours with foil, embroidery and paint-matched detail.",
     features: [
-      "Python · ostrich · alligator",
-      "Hand-glazed or matte finish",
+      "Everything in Minimalist",
+      "Foil or embroidered name",
+      "Paint-matched to your car",
+      "Flag, crest or lucky number",
       "Contrast thread & edge paint",
-      "Embroidered name or initials",
-      "Hardware in gold or palladium",
+    ],
+    prices: [
+      { skin: "Calf · Goat · Suede", price: "$199.5" },
+      { skin: "Lizard · Python · Deer", price: "$354.8" },
+      { skin: "Crocodile · Ostrich", price: "$576.7" },
     ],
     featured: true,
   },
   {
-    name: "Himalayan Crocodile",
-    origin: "The Pinnacle",
-    from: "$920",
+    name: "Needle-Painting Art",
+    origin: "The Painted Pinnacle",
+    from: "$266.1",
     blurb:
-      "The rarest natural crocodile crust, hand-painted to its signature snow-and-smoke marbling. No two are alike.",
+      "A hand needle-painted artwork worked directly into the skin — a portrait, a marque, a motif. A wearable miniature painting, signed by the artisan.",
     features: [
-      "Unbleached Himalayan crust",
-      "Bespoke marbled hand-painting",
-      "Sterling or solid-gold hardware",
-      "Crest, cloisonné or stone inlay",
-      "Presented in a signature box",
+      "Everything in Personalised",
+      "Hand needle-painted artwork",
+      "Portraits, marques or motifs",
+      "A wearable miniature painting",
+      "Signed by the artisan",
     ],
+    prices: [
+      { skin: "Calf · Goat · Suede", price: "$266.1" },
+      { skin: "Lizard · Python · Deer", price: "$421.4" },
+      { skin: "Crocodile · Ostrich", price: "$643.3" },
+    ],
+  },
+];
+
+export interface Showcase {
+  name: string;
+  origin: string;
+  from: string;
+  blurb: string;
+  prices?: TierPrice[];
+}
+
+export const limitedEdition: Showcase = {
+  name: "Limited Edition",
+  origin: "Numbered Series",
+  from: "$377.0",
+  blurb:
+    "Released in small, numbered runs — a single theme interpreted across our skins, then retired once the series is complete.",
+  prices: [
+    { skin: "Calf · Goat · Suede", price: "$377.0" },
+    { skin: "Lizard · Python · Deer", price: "$532.3" },
+    { skin: "Crocodile · Ostrich", price: "$754.2" },
+  ],
+};
+
+export const oneOfOne: Showcase = {
+  name: "One of One",
+  origin: "Showpiece Commissions",
+  from: "$1,109.5",
+  blurb:
+    "Singular art objects — AVALON, PAMDEM, the GT SHOW 2025 series — conceived once, built once, and never repeated.",
+};
+
+export interface PriceLine {
+  name: string;
+  price: string;
+  note?: string;
+}
+
+export const accessories: PriceLine[] = [
+  {
+    name: "Phone Case",
+    price: "$354.8",
+    note: "Wrapped in the skin of your choice",
+  },
+  {
+    name: "Lacquer Pendant",
+    price: "$110.7",
+    note: "Traditional Chinese 漆器 lacquerware",
+  },
+  {
+    name: "Car Badge",
+    price: "from $443.8",
+    note: "Hand-lacquered marque emblem",
+  },
+  {
+    name: "Silk Knot Lanyard",
+    price: "from $35.1",
+    note: "Grab cord $63.9 · set $86.1",
+  },
+  {
+    name: "Car Charm",
+    price: "from $22.0",
+    note: "Hanging charm · set $50.6",
+  },
+  {
+    name: "Lacquer Knot",
+    price: "$28.4",
+    note: "Lacquered good-luck knot",
   },
 ];
 
@@ -320,27 +421,27 @@ export interface Faq {
 
 export const faqs: Faq[] = [
   {
-    q: "Can you make a case for my exact key?",
-    a: "Yes. We pattern cases for virtually every marque — supercar, luxury, classic or daily. If we have not built yours before, send a photo of the key and we will create a fresh pattern at no extra cost.",
+    q: "How do I commission a piece?",
+    a: "Everything is made to order — we hold no stock, so a commission begins by reserving your place. Tell us your make, model and key fob, or send a photo, and we create a fresh pattern at no extra cost.",
   },
   {
     q: "What can I personalise?",
-    a: "Effectively everything: the leather type and colour, the thread and edge-paint colour, foil or embroidered names and initials, flags, crests, lucky numbers, lanyard style and hardware finish. Send us a photo of your car and we will match the leather to your paint.",
+    a: "Nine things, at least: the skin, the colour family, the stitch colour, the edge paint, the hardware finish, a foil or embroidered name, the strap leather and the keyring leather — plus any personal request, from a flag or crest to a hand-painted portrait or lucky number.",
   },
   {
-    q: "How long does a bespoke piece take?",
-    a: "Most commissions are hand-built and shipped within 2–4 weeks. Rare exotic skins such as Himalayan crocodile may take a little longer while we source the perfect hide.",
+    q: "Which leathers do you use?",
+    a: "Only the houses that supply the great maisons — French Sully goatskin (Hermès's own), Italian Pomari and Bonaudo calf, French HCP lizard and pure water-dyed crocodile, Indonesian ILW python and South African Klein Karoo ostrich.",
   },
   {
-    q: "Do you ship worldwide?",
-    a: "Yes — every order is shipped fully insured and tracked, presented in a signature LEECUE box. Customs and duties vary by destination.",
+    q: "How long does it take, and do you ship worldwide?",
+    a: "Each piece is hand-built over several days once your commission is booked. We ship fully tracked by SF Express across 200+ Chinese cities and worldwide — the USA, Canada, the UK, Germany, Spain, the UAE, Australia, New Zealand, Japan, Korea, Singapore, Malaysia and Thailand. A rush service is available for +30%.",
   },
   {
-    q: "Are the leathers genuine?",
-    a: "Always. We work only with genuine, ethically sourced hides from established tanneries, with documentation available for exotic skins where required.",
+    q: "Is each piece authenticated?",
+    a: "Yes. Every commission carries four gold seals — maker, year, China Intangible Cultural Heritage and studio — and arrives in a signature box. You also receive progress films from the bench as your piece is made.",
   },
   {
-    q: "How do I care for my piece?",
-    a: "Each commission arrives with a care card. Keep exotics away from prolonged moisture and direct heat; a soft dry cloth and the occasional conditioning is all most pieces ever need.",
+    q: "Who makes my piece?",
+    a: "Leon — Li Qin — founder of LEECUE ATELIER since 2015 and a third-generation inheritor of Wuhan leather moulding and carving, recognised as Intangible Cultural Heritage in 2019. One pair of hands, from first cut to final seal.",
   },
 ];

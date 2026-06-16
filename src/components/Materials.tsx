@@ -2,14 +2,15 @@ import { leathers } from "../data/products";
 import { Reveal, StaggerGroup, StaggerItem } from "./Reveal";
 
 const swatches: Record<string, string> = {
-  "Himalayan Crocodile":
-    "linear-gradient(135deg,#f3ede2,#d8cdbb 45%,#8a8174)",
-  "Glazed Alligator": "linear-gradient(135deg,#3a2420,#120b0a 60%,#5e1b1b)",
-  "Natural Python":
+  "Sully Goatskin": "linear-gradient(135deg,#e7d4a6,#c79a52 55%,#6e5026)",
+  "Pomari Calfskin": "linear-gradient(135deg,#c98a4e,#8a5226 55%,#3a2410)",
+  "Bonaudo Suede Calf": "linear-gradient(135deg,#9c9182,#665b4e 55%,#2c241c)",
+  "Bonaudo Deerskin": "linear-gradient(135deg,#dcc7a2,#a8865c 55%,#5c4128)",
+  "HCP Lizard": "linear-gradient(135deg,#4f7f6b,#1d3a33 45%,#86924c 80%,#243b34)",
+  "ILW Python":
     "linear-gradient(135deg,#5a6b6e,#2a2f33 40%,#8a7f6a 70%,#3b3340)",
-  "Ostrich & Exotics": "linear-gradient(135deg,#c8a877,#8a6a40 60%,#4a3826)",
-  "Box & French Calf": "linear-gradient(135deg,#e6cf94,#c9a14e 55%,#6e5526)",
-  "Hair-On Hide": "linear-gradient(135deg,#efe9df,#7a5c44 55%,#241a14)",
+  "HCP Crocodile": "linear-gradient(135deg,#3a2420,#120b0a 60%,#5e1b1b)",
+  "Klein Karoo Ostrich": "linear-gradient(135deg,#c8a877,#8a6a40 60%,#4a3826)",
 };
 
 export default function Materials() {
@@ -20,20 +21,21 @@ export default function Materials() {
         <Reveal className="mx-auto max-w-2xl text-center">
           <span className="eyebrow">The Skin Library</span>
           <h2 className="mt-5 font-serif text-[clamp(2.2rem,5vw,3.8rem)] leading-[1.04] text-bone">
-            Six leathers.
+            Eight leathers.
             <span className="italic text-gold-gradient"> Infinite character.</span>
           </h2>
           <p className="mx-auto mt-6 max-w-lg font-sans text-[14px] font-300 leading-relaxed text-bone/60">
-            We keep an ever-changing cellar of fine and exotic hides. Choose a
-            skin below, or ask — if it can be tanned, we can very likely source it.
+            We work only with the houses that supply the great maisons — Sully,
+            Pomari, Bonaudo, HCP, ILW and Klein Karoo. Choose a skin below, or
+            ask: if it can be tanned, we can very likely source it.
           </p>
         </Reveal>
 
-        <StaggerGroup className="mt-16 grid grid-cols-1 gap-px overflow-hidden border border-white/8 bg-white/5 sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerGroup className="mt-16 grid grid-cols-1 gap-px overflow-hidden border border-white/8 bg-white/5 sm:grid-cols-2 lg:grid-cols-4">
           {leathers.map((l, i) => (
             <StaggerItem
               key={l.name}
-              className="group relative bg-coal p-8 transition-colors duration-500 hover:bg-graphite"
+              className="group relative bg-coal p-7 transition-colors duration-500 hover:bg-graphite"
             >
               <div className="flex items-center justify-between">
                 <span

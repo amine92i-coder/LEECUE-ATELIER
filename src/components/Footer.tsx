@@ -1,10 +1,21 @@
 import { useState, type FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { Reveal } from "./Reveal";
 import { ArrowRight, Spark } from "./Icons";
+import { useSectionNav } from "../lib/useSectionNav";
+import { company } from "../data/legal";
+
+const legalLinks: [string, string][] = [
+  ["Impressum", "/impressum"],
+  ["Datenschutz", "/datenschutz"],
+  ["AGB", "/agb"],
+  ["Widerruf", "/widerruf"],
+];
 
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);
+  const onSection = useSectionNav();
 
   const subscribe = (e: FormEvent) => {
     e.preventDefault();
@@ -22,7 +33,11 @@ export default function Footer() {
           Let's dress your key in something
           <span className="italic text-gold-gradient"> unforgettable.</span>
         </h2>
-        <a href="#commission" className="btn-solid mt-9">
+        <a
+          href="/#commission"
+          onClick={(e) => onSection(e, "#commission")}
+          className="btn-solid mt-9"
+        >
           <span>Commission a Piece</span>
         </a>
       </Reveal>
@@ -108,40 +123,85 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Bottom bar */}
       <div className="border-t border-white/5">
-        <div className="mx-auto flex max-w-site flex-col items-center justify-between gap-3 px-6 py-7 text-center sm:flex-row sm:text-left lg:px-10">
-          <span className="text-[11px] tracking-wide2 text-smoke">
-            © {new Date().getFullYear()} LEECUE ATELIER — All rights reserved.
-          </span>
-          <span className="text-[11px] tracking-wide2 text-smoke">
-            Handmade · Genuine Leather · Worldwide Shipping
-          </span>
+        <div className="mx-auto max-w-site px-6 py-7 lg:px-10">
+          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 sm:justify-start">
+            {legalLinks.map(([label, to]) => (
+              <Link
+                key={to}
+                to={to}
+                className="font-sans text-[11px] uppercase tracking-wide2 text-bone/55 transition-colors duration-300 hover:text-gold"
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+          <div className="mt-5 flex flex-col items-center justify-between gap-2 border-t border-white/5 pt-5 text-center sm:flex-row sm:text-left">
+            <span className="text-[11px] tracking-wide2 text-smoke">
+              © {new Date().getFullYear()} LEECUE ATELIER · operated by{" "}
+              {company.legalName}
+            </span>
+            <span className="text-[11px] tracking-wide2 text-smoke">
+              Handmade · Genuine Leather · Worldwide Shipping
+            </span>
+          </div>
         </div>
       </div>
     </footer>
   );
 }
 
-function FooterCol({ title, links }: { title: string; links: [string, string][] }) {
+function FooterCol({
+  title,
+  links,
+}: {
+  title: string;
+  links: [string, string][];
+}) {
+  const onSection = useSectionNav();
+
   return (
     <div>
       <h4 className="text-[10px] uppercase tracking-luxe text-smoke">{title}</h4>
       <ul className="mt-4 space-y-3">
         {links.map(([label, href]) => {
-          const external = href.startsWith("http");
-          return (
-            <li key={label}>
+          const cls =
+            "font-sans text-[13px] text-bone/60 transition-colors duration-300 hover:text-gold";
+
+          let node;
+          if (href.startsWith("http") || href.startsWith("mailto:")) {
+            const external = href.startsWith("http");
+            node = (
               <a
                 href={href}
                 {...(external
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
-                className="font-sans text-[13px] text-bone/60 transition-colors duration-300 hover:text-gold"
+                className={cls}
               >
                 {label}
               </a>
-            </li>
-          );
+            );
+          } else if (href.startsWith("#")) {
+            node = (
+              <a
+                href={`/${href}`}
+                onClick={(e) => onSection(e, href)}
+                className={cls}
+              >
+                {label}
+              </a>
+            );
+          } else {
+            node = (
+              <Link to={href} className={cls}>
+                {label}
+              </Link>
+            );
+          }
+
+          return <li key={label}>{node}</li>;
         })}
       </ul>
     </div>

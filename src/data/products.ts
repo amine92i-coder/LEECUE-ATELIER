@@ -242,6 +242,49 @@ export const leathers: Leather[] = [
   },
 ];
 
+export interface Swatch {
+  name: string;
+  hex: string;
+}
+
+/**
+ * A curated extract of the atelier's standing palette — over one hundred
+ * leather colours can be matched, mixed or paint-matched to order.
+ */
+export const leatherColours: Swatch[] = [
+  { name: "Ivory Crust", hex: "#ece3d0" },
+  { name: "Champagne", hex: "#d8c39a" },
+  { name: "Sully Gold", hex: "#c79a52" },
+  { name: "Camel", hex: "#b0814e" },
+  { name: "Cognac", hex: "#9a5a2b" },
+  { name: "Tobacco", hex: "#6b4423" },
+  { name: "Espresso", hex: "#3a2414" },
+  { name: "Arancio", hex: "#d2601a" },
+  { name: "Saffron", hex: "#d99a2b" },
+  { name: "Giallo", hex: "#e6b800" },
+  { name: "Rosso Corsa", hex: "#b11a1a" },
+  { name: "Cherry", hex: "#8a1f2a" },
+  { name: "Bordeaux", hex: "#5a1f25" },
+  { name: "Oxblood", hex: "#4a1c1c" },
+  { name: "Sakura Rose", hex: "#e3a6ad" },
+  { name: "Blush", hex: "#e6c2b8" },
+  { name: "Fuchsia", hex: "#a83a6a" },
+  { name: "Imperial Purple", hex: "#4a2a52" },
+  { name: "Royal Navy", hex: "#1f2a44" },
+  { name: "Cobalt", hex: "#2a4a8a" },
+  { name: "French Blue Jean", hex: "#4a6a8a" },
+  { name: "Powder Blue", hex: "#a7c4cf" },
+  { name: "Tiffany", hex: "#4fb6ac" },
+  { name: "Petrol", hex: "#1f4a4a" },
+  { name: "Emerald", hex: "#1f6a4a" },
+  { name: "Cyprus", hex: "#2f4a3c" },
+  { name: "Olive", hex: "#6b6a3a" },
+  { name: "Slate", hex: "#4a525a" },
+  { name: "Pearl Grey", hex: "#b8b4ac" },
+  { name: "Graphite", hex: "#3a3a3c" },
+  { name: "Noir", hex: "#14110f" },
+];
+
 export interface Step {
   index: string;
   title: string;
@@ -257,7 +300,7 @@ export const processSteps: Step[] = [
   {
     index: "II",
     title: "Compose Every Detail",
-    body: "Choose your skin, colour family, stitch colour, edge paint and hardware finish, the name or initials, even the strap and keyring leather. Nine decisions, each one yours — add a flag, a crest, a lucky number.",
+    body: "Choose your skin, colour family, stitch colour, edge paint and hardware finish, the name or initials, even the strap and keyring leather — plus any personal request. Nine decisions, each one yours: add a flag, a crest, a lucky number.",
   },
   {
     index: "III",
@@ -375,6 +418,18 @@ export const oneOfOne: Showcase = {
     "Singular art objects — AVALON, PAMDEM, the GT SHOW 2025 series — conceived once, built once, and never repeated.",
 };
 
+export interface Collaboration {
+  name: string;
+  marque: string;
+}
+
+export const collaborations: Collaboration[] = [
+  { name: "ICE · Yang Changqing", marque: "Lamborghini" },
+  { name: "AMCC Muscle-Car Club", marque: "Corvette C8 Z06 · GT Show 2025" },
+  { name: "Mercedes-Maybach", marque: "Private commission" },
+  { name: "Bentley", marque: "Private commission" },
+];
+
 export interface PriceLine {
   name: string;
   price: string;
@@ -388,16 +443,6 @@ export const accessories: PriceLine[] = [
     note: "Wrapped in the skin of your choice",
   },
   {
-    name: "Lacquer Pendant",
-    price: "$110.7",
-    note: "Traditional Chinese 漆器 lacquerware",
-  },
-  {
-    name: "Car Badge",
-    price: "from $443.8",
-    note: "Hand-lacquered marque emblem",
-  },
-  {
     name: "Silk Knot Lanyard",
     price: "from $35.1",
     note: "Grab cord $63.9 · set $86.1",
@@ -407,11 +452,68 @@ export const accessories: PriceLine[] = [
     price: "from $22.0",
     note: "Hanging charm · set $50.6",
   },
+];
+
+export interface JointCreation {
+  eyebrow: string;
+  title: string;
+  emphasis: string;
+  body: string;
+  certification: string;
+  pieces: PriceLine[];
+}
+
+export const jointCreation: JointCreation = {
+  eyebrow: "Joint Creations · 联名创作",
+  title: "Lacquer & leather,",
+  emphasis: "two living heritages.",
+  body: "In rare partnership with a master of Chinese lacquer — 漆器, itself recognised as National Intangible Cultural Heritage — we craft 祥瑞 auspicious amulets and co-branded car emblems. Cinnabar and black lacquer, built and polished over many coats, then finished by hand in gold.",
+  certification: "National Intangible Cultural Heritage · 国家级非物质文化遗产",
+  pieces: [
+    {
+      name: "Lacquer Amulet Pendant",
+      price: "$110.7",
+      note: "祥瑞护身符 — an auspicious protective charm",
+    },
+    {
+      name: "Lacquer Good-Luck Knot",
+      price: "$28.4",
+      note: "Hand-lacquered Chinese knot",
+    },
+    {
+      name: "Lacquer Car Emblem",
+      price: "from $443.8",
+      note: "Co-branded marque badge",
+    },
+  ],
+};
+
+export const credentials: { label: string; detail: string }[] = [
   {
-    name: "Lacquer Knot",
-    price: "$28.4",
-    note: "Lacquered good-luck knot",
+    label: "District Intangible Cultural Heritage",
+    detail: "Declared by the Jiang'an District Government, December 2019",
   },
+  {
+    label: "Wuhan Arts & Crafts Association",
+    detail: "Recognised member atelier",
+  },
+  {
+    label: "Third-Generation Inheritor",
+    detail: "Of Wuhan leather moulding & carving",
+  },
+  {
+    label: "Trained under Master Lu Yonggang",
+    detail: "District ICH inheritor, Jiang'an",
+  },
+];
+
+export const practice: string[] = [
+  "Bespoke design & development",
+  "Restyling & restoration",
+  "Masterclasses & training",
+  "DIY atelier experiences",
+  "Cultural exhibitions",
+  "Brand collaborations",
 ];
 
 export interface Faq {
@@ -435,6 +537,10 @@ export const faqs: Faq[] = [
   {
     q: "How long does it take, and do you ship worldwide?",
     a: "Each piece is hand-built over several days once your commission is booked. We ship fully tracked by SF Express across 200+ Chinese cities and worldwide — the USA, Canada, the UK, Germany, Spain, the UAE, Australia, New Zealand, Japan, Korea, Singapore, Malaysia and Thailand. A rush service is available for +30%.",
+  },
+  {
+    q: "What if my piece isn't right?",
+    a: "No deposit is taken until you have approved your design and quote, so nothing is finalised before you are certain. Pieces dispatch by SF Express on an air-freight, pay-on-delivery basis. In the rare event a finished piece isn't right after full consultation, return it unused and in resale condition and we will remake it for you — bespoke work is otherwise non-returnable.",
   },
   {
     q: "Is each piece authenticated?",

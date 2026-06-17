@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
+import { useSectionNav } from "../lib/useSectionNav";
 import { EASE_SILK } from "./Reveal";
 
 const links = [
@@ -14,6 +15,7 @@ const links = [
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const onSection = useSectionNav();
 
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, {
@@ -49,7 +51,11 @@ export default function Nav() {
         }`}
       >
         <nav className="mx-auto flex max-w-site items-center justify-between px-6 lg:px-10">
-          <a href="#top" className="group flex items-center gap-3">
+          <a
+            href="/"
+            onClick={(e) => onSection(e, "#top")}
+            className="group flex items-center gap-3"
+          >
             <span className="grid h-9 w-9 place-items-center border border-gold/40 text-gold font-serif text-xl leading-none transition-colors duration-500 group-hover:bg-gold group-hover:text-ink">
               L
             </span>
@@ -65,7 +71,8 @@ export default function Nav() {
             {links.map((l) => (
               <li key={l.href}>
                 <a
-                  href={l.href}
+                  href={`/${l.href}`}
+                  onClick={(e) => onSection(e, l.href)}
                   className="group relative font-sans text-[12px] uppercase tracking-wide2 text-bone/75 transition-colors duration-300 hover:text-bone"
                 >
                   {l.label}
@@ -77,7 +84,8 @@ export default function Nav() {
 
           <div className="flex items-center gap-4">
             <a
-              href="#commission"
+              href="/#commission"
+              onClick={(e) => onSection(e, "#commission")}
               className="hidden btn-gold !px-6 !py-3 sm:inline-flex"
             >
               <span>Commission a Piece</span>
@@ -118,8 +126,11 @@ export default function Nav() {
               (l) => (
                 <li key={l.href}>
                   <a
-                    href={l.href}
-                    onClick={() => setOpen(false)}
+                    href={`/${l.href}`}
+                    onClick={(e) => {
+                      onSection(e, l.href);
+                      setOpen(false);
+                    }}
                     className="block py-3 font-sans text-sm uppercase tracking-wide2 text-bone/80"
                   >
                     {l.label}

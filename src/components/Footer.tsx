@@ -78,7 +78,9 @@ export default function Footer() {
         <div>
           <h4 className="text-[10px] uppercase tracking-luxe text-smoke">The List</h4>
           <p className="mt-4 font-sans text-[13px] font-300 leading-relaxed text-bone/50">
-            New skins, rare hides and atelier stories — occasionally, never often.
+            New skins, rare hides and atelier stories — plus giveaways, fan
+            co-creations and anniversary events for our WeChat circle.
+            Occasionally, never often.
           </p>
           {done ? (
             <p className="mt-4 flex items-center gap-2 font-serif text-lg italic text-gold-gradient">

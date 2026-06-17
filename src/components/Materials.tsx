@@ -1,4 +1,5 @@
-import { leathers } from "../data/products";
+import { useState } from "react";
+import { leathers, leatherColours } from "../data/products";
 import { Reveal, StaggerGroup, StaggerItem } from "./Reveal";
 
 const swatches: Record<string, string> = {
@@ -14,6 +15,8 @@ const swatches: Record<string, string> = {
 };
 
 export default function Materials() {
+  const [colourImgOk, setColourImgOk] = useState(true);
+
   return (
     <section id="leathers" className="relative carbon py-28 lg:py-36">
       <div className="absolute inset-0 bg-gradient-to-b from-ink via-transparent to-ink" />
@@ -25,9 +28,10 @@ export default function Materials() {
             <span className="italic text-gold-gradient"> Infinite character.</span>
           </h2>
           <p className="mx-auto mt-6 max-w-lg font-sans text-[14px] font-300 leading-relaxed text-bone/60">
-            We work only with the houses that supply the great maisons — Sully,
-            Pomari, Bonaudo, HCP, ILW and Klein Karoo. Choose a skin below, or
-            ask: if it can be tanned, we can very likely source it.
+            We work only with the European houses that supply the great maisons
+            — the same tanneries behind Hermès, Louis Vuitton, Gucci and Celine.
+            Choose a skin below, or ask: if it can be tanned, we can very likely
+            source it.
           </p>
         </Reveal>
 
@@ -54,6 +58,52 @@ export default function Materials() {
             </StaggerItem>
           ))}
         </StaggerGroup>
+
+        {/* About colour — the standing palette */}
+        <Reveal className="mt-24 lg:mt-28">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="eyebrow">About Colour</span>
+            <h3 className="mt-5 font-serif text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.08] text-bone">
+              One skin,
+              <span className="italic text-gold-gradient"> a hundred colours.</span>
+            </h3>
+            <p className="mx-auto mt-5 max-w-md font-sans text-[14px] font-300 leading-relaxed text-bone/60">
+              A standing palette of over one hundred dyes — from Sakura Rose and
+              Tiffany to Bordeaux and Noir — each one matched, mixed or
+              paint-matched to your car.
+            </p>
+          </div>
+
+          {colourImgOk && (
+            <div className="relative mx-auto mt-12 max-w-4xl overflow-hidden border border-white/8">
+              <img
+                src="/generated/leather-colours.jpg"
+                alt="A fanned spectrum of exotic leather colour swatches"
+                onError={() => setColourImgOk(false)}
+                loading="lazy"
+                className="aspect-[3/2] w-full object-cover"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-coal/70 via-transparent to-transparent" />
+            </div>
+          )}
+
+          <div className="mx-auto mt-12 flex max-w-4xl flex-wrap justify-center gap-x-6 gap-y-7">
+            {leatherColours.map((c) => (
+              <div
+                key={c.name}
+                className="group flex w-[4.5rem] flex-col items-center gap-2.5"
+              >
+                <span
+                  className="h-11 w-11 rounded-full border border-white/15 shadow-inner transition-transform duration-500 ease-silk group-hover:scale-110"
+                  style={{ background: c.hex }}
+                />
+                <span className="text-center font-sans text-[10px] font-300 leading-tight tracking-wide text-bone/55 transition-colors duration-300 group-hover:text-bone/85">
+                  {c.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );

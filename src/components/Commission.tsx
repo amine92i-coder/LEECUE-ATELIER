@@ -25,6 +25,7 @@ interface Preview {
 const reassurance = [
   "Free, no-obligation quote within 24 hours",
   "Send photos of your car & key — we match everything",
+  "No deposit until you approve your design & quote",
   "Hand-built and shipped worldwide, fully insured",
 ];
 

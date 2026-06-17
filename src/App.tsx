@@ -7,6 +7,7 @@ import Process from "./components/Process";
 import Materials from "./components/Materials";
 import Film from "./components/Film";
 import Maker from "./components/Maker";
+import JointCreations from "./components/JointCreations";
 import Pricing from "./components/Pricing";
 import Commission from "./components/Commission";
 import Faq from "./components/Faq";
@@ -25,6 +26,7 @@ export default function App() {
         <Materials />
         <Film />
         <Maker />
+        <JointCreations />
         <Pricing />
         <Commission />
         <Faq />

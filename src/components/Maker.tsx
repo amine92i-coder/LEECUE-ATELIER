@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Reveal } from "./Reveal";
+import { credentials, practice } from "../data/products";
 
 export default function Maker() {
   const [atelierOk, setAtelierOk] = useState(true);
@@ -85,6 +86,40 @@ export default function Maker() {
                 </div>
               </div>
             ))}
+          </Reveal>
+
+          <Reveal delay={320} className="mt-10 border-t border-white/8 pt-9">
+            <span className="text-[10px] uppercase tracking-luxe text-smoke">
+              Honours &amp; Recognition
+            </span>
+            <ul className="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2">
+              {credentials.map((c) => (
+                <li key={c.label} className="border-l border-gold/30 pl-4">
+                  <p className="font-serif text-[15px] leading-snug text-bone">
+                    {c.label}
+                  </p>
+                  <p className="mt-1 font-sans text-[11px] font-300 leading-snug text-bone/45">
+                    {c.detail}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+
+          <Reveal delay={360} className="mt-9">
+            <span className="text-[10px] uppercase tracking-luxe text-smoke">
+              The studio also offers
+            </span>
+            <div className="mt-4 flex flex-wrap gap-2.5">
+              {practice.map((p) => (
+                <span
+                  key={p}
+                  className="border border-white/12 px-3.5 py-1.5 font-sans text-[11px] font-300 tracking-wide text-bone/60"
+                >
+                  {p}
+                </span>
+              ))}
+            </div>
           </Reveal>
         </div>
       </div>

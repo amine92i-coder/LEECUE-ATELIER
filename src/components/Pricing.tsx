@@ -2,6 +2,7 @@ import {
   tiers,
   limitedEdition,
   oneOfOne,
+  collaborations,
   accessories,
 } from "../data/products";
 import { Reveal, StaggerGroup, StaggerItem } from "./Reveal";
@@ -115,9 +116,15 @@ export default function Pricing() {
           ))}
         </StaggerGroup>
 
+        <Reveal className="mt-16 text-center">
+          <p className="mx-auto max-w-xl font-serif text-[clamp(1.3rem,2.6vw,1.9rem)] italic leading-snug text-bone/60">
+            “Every piece we make is, by its very nature, a limited edition.”
+          </p>
+        </Reveal>
+
         {/* Limited Edition + One of One */}
         <StaggerGroup
-          className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2"
+          className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2"
           stagger={0.12}
         >
           <StaggerItem className="group relative flex flex-col border border-white/10 bg-ink/30 p-8 transition-colors duration-500 hover:border-gold/40 lg:flex-row lg:items-center lg:justify-between lg:p-9">
@@ -149,8 +156,16 @@ export default function Pricing() {
             </ul>
           </StaggerItem>
 
-          <StaggerItem className="group relative flex flex-col justify-between border border-gold/30 bg-graphite/40 p-8 transition-colors duration-500 hover:border-gold/55 lg:p-9">
-            <div>
+          <StaggerItem className="group relative flex flex-col justify-between overflow-hidden border border-gold/30 bg-graphite/40 p-8 transition-colors duration-500 hover:border-gold/55 lg:p-9">
+            <img
+              src="/generated/oneofone-showpiece.jpg"
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.18] transition-opacity duration-700 group-hover:opacity-30"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-graphite via-graphite/85 to-graphite/55" />
+            <div className="relative">
               <span className="eyebrow !text-gold/70">{oneOfOne.origin}</span>
               <h3 className="mt-2 font-serif text-[1.8rem] leading-tight text-bone">
                 {oneOfOne.name}
@@ -158,8 +173,28 @@ export default function Pricing() {
               <p className="mt-4 max-w-sm font-sans text-[13px] font-300 leading-relaxed text-bone/60">
                 {oneOfOne.blurb}
               </p>
+              <div className="mt-6 border-t border-white/8 pt-5">
+                <span className="text-[10px] uppercase tracking-luxe text-smoke">
+                  Star Commissions
+                </span>
+                <ul className="mt-3 flex flex-col gap-2">
+                  {collaborations.map((c) => (
+                    <li
+                      key={c.name}
+                      className="flex items-baseline justify-between gap-3"
+                    >
+                      <span className="font-sans text-[12px] font-300 leading-snug text-bone/70">
+                        {c.name}
+                      </span>
+                      <span className="whitespace-nowrap text-[10px] uppercase tracking-wide2 text-smoke">
+                        {c.marque}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <div className="mt-7 flex items-baseline gap-2">
+            <div className="relative mt-7 flex items-baseline gap-2">
               <span className="text-[11px] uppercase tracking-wide2 text-smoke">
                 from
               </span>

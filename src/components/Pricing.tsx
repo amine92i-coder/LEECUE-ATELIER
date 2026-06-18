@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   tiers,
   limitedEdition,
@@ -8,21 +9,35 @@ import {
 import { Reveal, StaggerGroup, StaggerItem } from "./Reveal";
 import { Check } from "./Icons";
 
+interface TierText {
+  name: string;
+  origin: string;
+  blurb: string;
+  features: string[];
+}
+
 export default function Pricing() {
+  const { t } = useTranslation();
+  const tierText = t("pricing.tiers", { returnObjects: true }) as TierText[];
+  const accText = t("pricing.accessories", { returnObjects: true }) as {
+    name: string;
+    note: string;
+  }[];
+
   return (
     <section id="pricing" className="relative bg-coal py-28 lg:py-36">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
       <div className="mx-auto max-w-site px-6 lg:px-10">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="eyebrow">The Investment</span>
+          <span className="eyebrow">{t("pricing.eyebrow")}</span>
           <h2 className="mt-5 font-serif text-[clamp(2.2rem,5vw,3.8rem)] leading-[1.04] text-bone text-balance">
-            Priced by the skin,
-            <span className="italic text-gold-gradient"> made by the hand.</span>
+            {t("pricing.titleLead")}
+            <span className="italic text-gold-gradient">
+              {t("pricing.titleEmph")}
+            </span>
           </h2>
           <p className="mx-auto mt-6 max-w-lg font-sans text-[14px] font-300 leading-relaxed text-bone/60">
-            Every commission is quoted individually — the figures below are
-            starting points for a standard key case, before your chosen
-            personalisation.
+            {t("pricing.subcopy")}
           </p>
         </Reveal>
 
@@ -30,50 +45,50 @@ export default function Pricing() {
           className="mt-16 grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-stretch"
           stagger={0.12}
         >
-          {tiers.map((t) => (
+          {tiers.map((tier, i) => (
             <StaggerItem
-              key={t.name}
+              key={tier.name}
               className={`group relative flex flex-col border p-8 transition-[transform,border-color,box-shadow] duration-500 ease-silk hover:-translate-y-1.5 lg:p-9 ${
-                t.featured
+                tier.featured
                   ? "border-gold/55 bg-graphite/50 shadow-[0_30px_80px_-40px_rgba(201,161,78,0.5)] lg:-translate-y-4 lg:hover:-translate-y-6"
                   : "border-white/10 bg-ink/30 hover:border-gold/40"
               }`}
             >
-              {t.featured && (
+              {tier.featured && (
                 <span className="absolute -top-px left-1/2 -translate-x-1/2 -translate-y-1/2 border border-gold/50 bg-coal px-4 py-1.5 text-[9px] uppercase tracking-luxe text-gold">
-                  {t.origin}
+                  {tierText[i].origin}
                 </span>
               )}
 
-              {!t.featured && (
-                <span className="eyebrow !text-bone/50">{t.origin}</span>
+              {!tier.featured && (
+                <span className="eyebrow !text-bone/50">{tierText[i].origin}</span>
               )}
 
               <h3
                 className={`font-serif text-[1.8rem] leading-tight text-bone ${
-                  t.featured ? "mt-2" : "mt-3"
+                  tier.featured ? "mt-2" : "mt-3"
                 }`}
               >
-                {t.name}
+                {tierText[i].name}
               </h3>
 
               <div className="mt-5 flex items-baseline gap-2">
                 <span className="text-[11px] uppercase tracking-wide2 text-smoke">
-                  from
+                  {t("pricing.from")}
                 </span>
                 <span className="font-serif text-5xl text-gold-gradient">
-                  {t.from}
+                  {tier.from}
                 </span>
               </div>
 
               <p className="mt-5 font-sans text-[13px] font-300 leading-relaxed text-bone/60">
-                {t.blurb}
+                {tierText[i].blurb}
               </p>
 
               <div className="my-7 h-px w-full bg-white/8" />
 
               <ul className="flex flex-col gap-3.5">
-                {t.features.map((f) => (
+                {tierText[i].features.map((f) => (
                   <li key={f} className="flex items-start gap-3">
                     <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-gold" />
                     <span className="font-sans text-[13px] font-300 leading-snug text-bone/75">
@@ -85,10 +100,10 @@ export default function Pricing() {
 
               <div className="mt-7 border-t border-white/8 pt-6">
                 <span className="text-[10px] uppercase tracking-luxe text-smoke">
-                  Priced by skin
+                  {t("pricing.pricedBySkin")}
                 </span>
                 <ul className="mt-3.5 flex flex-col gap-2.5">
-                  {t.prices.map((p) => (
+                  {tier.prices.map((p) => (
                     <li
                       key={p.skin}
                       className="flex items-baseline justify-between gap-3"
@@ -108,9 +123,9 @@ export default function Pricing() {
 
               <a
                 href="#commission"
-                className={`${t.featured ? "btn-solid" : "btn-gold"} w-full`}
+                className={`${tier.featured ? "btn-solid" : "btn-gold"} w-full`}
               >
-                <span>Commission in {t.name}</span>
+                <span>{t("pricing.commissionIn", { name: tierText[i].name })}</span>
               </a>
             </StaggerItem>
           ))}
@@ -118,7 +133,7 @@ export default function Pricing() {
 
         <Reveal className="mt-16 text-center">
           <p className="mx-auto max-w-xl font-serif text-[clamp(1.3rem,2.6vw,1.9rem)] italic leading-snug text-bone/60">
-            “Every piece we make is, by its very nature, a limited edition.”
+            {t("pricing.quote")}
           </p>
         </Reveal>
 
@@ -130,13 +145,13 @@ export default function Pricing() {
           <StaggerItem className="group relative flex flex-col border border-white/10 bg-ink/30 p-8 transition-colors duration-500 hover:border-gold/40 lg:flex-row lg:items-center lg:justify-between lg:p-9">
             <div className="max-w-xs">
               <span className="eyebrow !text-bone/50">
-                {limitedEdition.origin}
+                {t("pricing.limited.origin")}
               </span>
               <h3 className="mt-2 font-serif text-[1.8rem] leading-tight text-bone">
-                {limitedEdition.name}
+                {t("pricing.limited.name")}
               </h3>
               <p className="mt-4 font-sans text-[13px] font-300 leading-relaxed text-bone/60">
-                {limitedEdition.blurb}
+                {t("pricing.limited.blurb")}
               </p>
             </div>
             <ul className="mt-6 flex flex-col gap-2.5 lg:mt-0 lg:min-w-[12rem] lg:pl-8">
@@ -166,16 +181,18 @@ export default function Pricing() {
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-graphite via-graphite/85 to-graphite/55" />
             <div className="relative">
-              <span className="eyebrow !text-gold/70">{oneOfOne.origin}</span>
+              <span className="eyebrow !text-gold/70">
+                {t("pricing.oneOfOne.origin")}
+              </span>
               <h3 className="mt-2 font-serif text-[1.8rem] leading-tight text-bone">
-                {oneOfOne.name}
+                {t("pricing.oneOfOne.name")}
               </h3>
               <p className="mt-4 max-w-sm font-sans text-[13px] font-300 leading-relaxed text-bone/60">
-                {oneOfOne.blurb}
+                {t("pricing.oneOfOne.blurb")}
               </p>
               <div className="mt-6 border-t border-white/8 pt-5">
                 <span className="text-[10px] uppercase tracking-luxe text-smoke">
-                  Star Commissions
+                  {t("pricing.starCommissions")}
                 </span>
                 <ul className="mt-3 flex flex-col gap-2">
                   {collaborations.map((c) => (
@@ -196,7 +213,7 @@ export default function Pricing() {
             </div>
             <div className="relative mt-7 flex items-baseline gap-2">
               <span className="text-[11px] uppercase tracking-wide2 text-smoke">
-                from
+                {t("pricing.from")}
               </span>
               <span className="font-serif text-[2.6rem] leading-none text-gold-gradient">
                 {oneOfOne.from}
@@ -210,18 +227,20 @@ export default function Pricing() {
           delay={80}
           className="mt-6 border border-white/8 bg-coal/40 p-8 lg:p-9"
         >
-          <span className="eyebrow !text-bone/50">Beyond the Key</span>
+          <span className="eyebrow !text-bone/50">{t("pricing.beyondKey")}</span>
           <div className="mt-6 grid grid-cols-1 gap-x-10 gap-y-px sm:grid-cols-2 lg:grid-cols-3">
-            {accessories.map((a) => (
+            {accessories.map((a, i) => (
               <div
                 key={a.name}
                 className="flex items-baseline justify-between gap-4 border-b border-white/6 py-4"
               >
                 <div>
-                  <p className="font-sans text-[13px] text-bone/80">{a.name}</p>
-                  {a.note && (
+                  <p className="font-sans text-[13px] text-bone/80">
+                    {accText[i].name}
+                  </p>
+                  {accText[i].note && (
                     <p className="mt-0.5 font-sans text-[11px] font-300 leading-snug text-bone/45">
-                      {a.note}
+                      {accText[i].note}
                     </p>
                   )}
                 </div>
@@ -238,12 +257,12 @@ export default function Pricing() {
           className="mt-12 flex flex-col items-center gap-3 text-center"
         >
           <p className="font-sans text-[13px] font-300 tracking-wide text-bone/50">
-            Made to order, booking required · a{" "}
-            <span className="text-bone/80">rush service</span> is available for
-            +30% · matched sets &amp; full interiors quoted on request.
+            {t("pricing.footnoteLead")}
+            <span className="text-bone/80">{t("pricing.rushService")}</span>
+            {t("pricing.footnoteTail")}
           </p>
           <p className="max-w-md font-serif text-lg italic text-bone/60">
-            No deposit is taken until you have approved your design and quote.
+            {t("pricing.noDeposit")}
           </p>
         </Reveal>
       </div>

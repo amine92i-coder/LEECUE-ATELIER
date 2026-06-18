@@ -6,6 +6,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { Reveal } from "./Reveal";
 
 /** Scroll-scrubbed cinematic film: a Higgsfield-generated clip in which a sheet
@@ -18,41 +19,37 @@ const FINAL = "/generated/film-wrap-final.webp";
 
 interface Beat {
   n: string;
-  eyebrow: string;
-  line: string;
-  sub: string;
   /** Opacity keyframe windows across scroll progress: [fadeInStart, full, holdEnd, fadeOutEnd]. */
   at: [number, number, number, number];
   /** The last beat holds to the end rather than fading out. */
   last?: boolean;
 }
 
+/** Localised copy per beat (eyebrow/line/sub) — see `film.beats`, keyed positionally. */
+interface BeatText {
+  eyebrow: string;
+  line: string;
+  sub: string;
+}
+
 const BEATS: Beat[] = [
   {
     n: "I",
-    eyebrow: "The Hide",
-    line: "It begins as a single rare skin.",
-    sub: "One hide, chosen by hand for its grain, its lustre, its life.",
     at: [0.02, 0.12, 0.26, 0.34],
   },
   {
     n: "II",
-    eyebrow: "The Hand",
-    line: "Folded, wrapped and stitched.",
-    sub: "Leather is drawn around your key, every seam set by hand in waxed thread.",
     at: [0.4, 0.5, 0.62, 0.7],
   },
   {
     n: "III",
-    eyebrow: "The Piece",
-    line: "Until it becomes yours.",
-    sub: "Moulded to your key, finished to your marque — an heirloom made to be carried.",
     at: [0.76, 0.86, 1, 1],
     last: true,
   },
 ];
 
 export default function Film() {
+  const { t } = useTranslation();
   const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -138,13 +135,13 @@ export default function Film() {
         {/* Vertical section label, balancing the rail */}
         <div className="pointer-events-none absolute left-5 top-1/2 hidden -translate-y-1/2 sm:block lg:left-9">
           <span className="block -rotate-90 whitespace-nowrap text-[10px] uppercase tracking-luxe text-bone/40">
-            The Atelier Film
+            {t("film.label")}
           </span>
         </div>
 
         {/* Crossfading captions */}
-        {BEATS.map((b) => (
-          <Caption key={b.n} beat={b} progress={scrollYProgress} />
+        {BEATS.map((b, i) => (
+          <Caption key={b.n} beat={b} index={i} progress={scrollYProgress} />
         ))}
 
         {/* Scroll cue, fades on first movement */}
@@ -159,11 +156,15 @@ export default function Film() {
 
 function Caption({
   beat,
+  index,
   progress,
 }: {
   beat: Beat;
+  index: number;
   progress: MotionValue<number>;
 }) {
+  const { t } = useTranslation();
+  const txt = (t("film.beats", { returnObjects: true }) as BeatText[])[index];
   const [a, b, c, d] = beat.at;
   const opacity = useTransform(progress, [a, b, c, d], [0, 1, 1, beat.last ? 1 : 0]);
   const y = useTransform(progress, [a, d], [36, -22]);
@@ -176,26 +177,29 @@ function Caption({
       <div className="flex items-center gap-4">
         <span className="font-serif text-sm text-gold">{beat.n}</span>
         <span className="h-px w-10 bg-gold/50" />
-        <span className="eyebrow !text-gold/90">{beat.eyebrow}</span>
+        <span className="eyebrow !text-gold/90">{txt.eyebrow}</span>
       </div>
       <h2 className="mt-5 max-w-2xl font-serif text-[clamp(2rem,5.5vw,4rem)] leading-[1.05] text-bone text-balance">
-        {beat.line}
+        {txt.line}
       </h2>
       <p className="mt-4 max-w-md font-sans text-[14px] font-300 leading-relaxed text-bone/70">
-        {beat.sub}
+        {txt.sub}
       </p>
     </motion.div>
   );
 }
 
 function ScrollCue({ progress }: { progress: MotionValue<number> }) {
+  const { t } = useTranslation();
   const opacity = useTransform(progress, [0, 0.05], [1, 0]);
   return (
     <motion.div
       style={{ opacity }}
       className="pointer-events-none absolute inset-x-0 bottom-7 flex flex-col items-center gap-2"
     >
-      <span className="text-[10px] uppercase tracking-luxe text-bone/50">Scroll</span>
+      <span className="text-[10px] uppercase tracking-luxe text-bone/50">
+        {t("film.scroll")}
+      </span>
       <span className="h-8 w-px bg-gradient-to-b from-gold/70 to-transparent" />
     </motion.div>
   );
@@ -224,14 +228,19 @@ function Rail({ progress }: { progress: MotionValue<number> }) {
 
 /** Static, non-pinned fallback honouring prefers-reduced-motion. */
 function FilmStatic() {
+  const { t } = useTranslation();
+  const beats = t("film.beats", { returnObjects: true }) as BeatText[];
   return (
     <section id="film" className="relative bg-ink py-28 lg:py-36">
       <div className="mx-auto max-w-site px-6 lg:px-10">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="eyebrow">The Atelier Film</span>
+          <span className="eyebrow">{t("film.staticEyebrow")}</span>
           <h2 className="mt-5 font-serif text-[clamp(2.2rem,5vw,3.8rem)] leading-[1.04] text-bone text-balance">
-            From a single skin,
-            <span className="italic text-gold-gradient"> wrapped by hand.</span>
+            {t("film.staticTitleLead")}
+            <span className="italic text-gold-gradient">
+              {" "}
+              {t("film.staticTitleEmph")}
+            </span>
           </h2>
         </Reveal>
 
@@ -245,14 +254,16 @@ function FilmStatic() {
         </Reveal>
 
         <div className="mt-px grid gap-px overflow-hidden border-x border-b border-white/8 bg-white/5 sm:grid-cols-3">
-          {BEATS.map((b) => (
+          {BEATS.map((b, i) => (
             <Reveal key={b.n} className="bg-coal p-7">
               <span className="eyebrow !text-gold/90">
-                {b.n} — {b.eyebrow}
+                {b.n} — {beats[i].eyebrow}
               </span>
-              <h3 className="mt-3 font-serif text-2xl text-bone">{b.line}</h3>
+              <h3 className="mt-3 font-serif text-2xl text-bone">
+                {beats[i].line}
+              </h3>
               <p className="mt-2 font-sans text-[13px] font-300 leading-relaxed text-bone/60">
-                {b.sub}
+                {beats[i].sub}
               </p>
             </Reveal>
           ))}

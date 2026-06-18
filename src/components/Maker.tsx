@@ -1,9 +1,21 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Reveal } from "./Reveal";
-import { credentials, practice } from "../data/products";
+
+interface Credential {
+  label: string;
+  detail: string;
+}
 
 export default function Maker() {
+  const { t } = useTranslation();
   const [atelierOk, setAtelierOk] = useState(true);
+  const stats = t("maker.stats", { returnObjects: true }) as {
+    n: string;
+    label: string;
+  }[];
+  const credentials = t("maker.credentials", { returnObjects: true }) as Credential[];
+  const practice = t("maker.practice", { returnObjects: true }) as string[];
 
   return (
     <section id="maker" className="relative bg-ink py-28 lg:py-36">
@@ -35,28 +47,19 @@ export default function Maker() {
         {/* Story */}
         <div>
           <Reveal>
-            <span className="eyebrow">Meet the Maker</span>
+            <span className="eyebrow">{t("maker.eyebrow")}</span>
             <h2 className="mt-5 font-serif text-[clamp(2.2rem,5vw,3.6rem)] leading-[1.04] text-bone">
-              One bench. One craftsman.
+              {t("maker.titleLead")}
               <br />
-              <span className="italic text-gold-gradient">Every single piece.</span>
+              <span className="italic text-gold-gradient">
+                {t("maker.titleEmph")}
+              </span>
             </h2>
           </Reveal>
           <Reveal delay={120}>
             <div className="mt-7 space-y-5 font-sans text-[15px] font-300 leading-relaxed text-bone/65">
-              <p>
-                LEECUE ATELIER is the work of Leon — Li Qin — who has sat at the
-                same bench in Wuhan since 2015. Trained under master Lu Yonggang,
-                he is a third-generation inheritor of Wuhan leather moulding and
-                carving, a craft recognised as Intangible Cultural Heritage.
-              </p>
-              <p>
-                A decade on, that same pair of hands still cuts, skives,
-                saddle-stitches and burnishes every commission that leaves the
-                studio. There are no machines here pretending to be people — only
-                the finest exotic skins, waxed linen thread, patience, and a
-                refusal to ship anything short of perfect.
-              </p>
+              <p>{t("maker.bio1")}</p>
+              <p>{t("maker.bio2")}</p>
             </div>
           </Reveal>
           <Reveal delay={200}>
@@ -67,22 +70,18 @@ export default function Maker() {
                   Leon · 李勤
                 </span>
                 <span className="mt-1 text-[10px] uppercase tracking-wide2 text-smoke">
-                  Founder · Intangible Cultural Heritage, Wuhan
+                  {t("maker.role")}
                 </span>
               </div>
             </div>
           </Reveal>
 
           <Reveal delay={260} className="mt-10 grid grid-cols-3 gap-4">
-            {[
-              ["2015", "The atelier, founded"],
-              ["3rd", "Generation inheritor"],
-              ["200+", "Cities worldwide"],
-            ].map(([n, l]) => (
-              <div key={l} className="border-l border-gold/30 pl-4">
-                <div className="font-serif text-3xl text-bone">{n}</div>
+            {stats.map((s) => (
+              <div key={s.label} className="border-l border-gold/30 pl-4">
+                <div className="font-serif text-3xl text-bone">{s.n}</div>
                 <div className="mt-1 text-[10px] uppercase tracking-wide2 text-smoke">
-                  {l}
+                  {s.label}
                 </div>
               </div>
             ))}
@@ -90,7 +89,7 @@ export default function Maker() {
 
           <Reveal delay={320} className="mt-10 border-t border-white/8 pt-9">
             <span className="text-[10px] uppercase tracking-luxe text-smoke">
-              Honours &amp; Recognition
+              {t("maker.honoursTitle")}
             </span>
             <ul className="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2">
               {credentials.map((c) => (
@@ -108,7 +107,7 @@ export default function Maker() {
 
           <Reveal delay={360} className="mt-9">
             <span className="text-[10px] uppercase tracking-luxe text-smoke">
-              The studio also offers
+              {t("maker.offersTitle")}
             </span>
             <div className="mt-4 flex flex-wrap gap-2.5">
               {practice.map((p) => (

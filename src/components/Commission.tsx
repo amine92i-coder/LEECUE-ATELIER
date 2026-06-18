@@ -1,20 +1,8 @@
 import { useRef, useState, type ChangeEvent, type DragEvent, type FormEvent } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { Reveal, EASE_SILK } from "./Reveal";
 import { Check, Close, Upload } from "./Icons";
-
-const productTypes = ["Key Case", "Phone Case", "Charm / Lanyard", "Something Else"];
-const leatherOptions = [
-  "Crocodile",
-  "Ostrich",
-  "Python",
-  "Lizard",
-  "Deerskin",
-  "Goatskin",
-  "Calfskin",
-  "Suede",
-  "Help Me Choose",
-];
 
 interface Preview {
   id: string;
@@ -22,17 +10,14 @@ interface Preview {
   name: string;
 }
 
-const reassurance = [
-  "Free, no-obligation quote within 24 hours",
-  "Send photos of your car & key — we match everything",
-  "No deposit until you approve your design & quote",
-  "Hand-built and shipped worldwide, fully insured",
-];
-
 export default function Commission() {
+  const { t } = useTranslation();
   const reduce = useReducedMotion();
-  const [productType, setProductType] = useState("Key Case");
-  const [leather, setLeather] = useState("Crocodile");
+  const productTypes = t("commission.productTypes", { returnObjects: true }) as string[];
+  const leatherOptions = t("commission.leatherOptions", { returnObjects: true }) as string[];
+  const reassurance = t("commission.reassurance", { returnObjects: true }) as string[];
+  const [productType, setProductType] = useState(0);
+  const [leather, setLeather] = useState(0);
   const [previews, setPreviews] = useState<Preview[]>([]);
   const [dragging, setDragging] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -100,15 +85,16 @@ export default function Commission() {
         {/* Left rail */}
         <div className="lg:sticky lg:top-28 lg:self-start">
           <Reveal>
-            <span className="eyebrow">Commission</span>
+            <span className="eyebrow">{t("commission.eyebrow")}</span>
             <h2 className="mt-5 font-serif text-[clamp(2.2rem,5vw,3.8rem)] leading-[1.02] text-bone">
-              Begin your
+              {t("commission.titleLead")}
               <br />
-              <span className="italic text-gold-gradient">bespoke piece.</span>
+              <span className="italic text-gold-gradient">
+                {t("commission.titleEmph")}
+              </span>
             </h2>
             <p className="mt-6 max-w-md font-sans text-[14px] font-300 leading-relaxed text-bone/60">
-              Tell us about your car and how you'd like it dressed. The more you
-              share — photos especially — the more precisely we can quote and craft.
+              {t("commission.subcopy")}
             </p>
           </Reveal>
 
@@ -128,7 +114,7 @@ export default function Commission() {
           <Reveal delay={200}>
             <div className="mt-10 border-t border-white/8 pt-7">
               <span className="text-[10px] uppercase tracking-luxe text-smoke">
-                Prefer to chat?
+                {t("commission.preferChat")}
               </span>
               <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 font-sans text-[13px] text-bone/70">
                 <span>
@@ -182,15 +168,17 @@ export default function Commission() {
                 </svg>
               </motion.span>
               <h3 className="mt-7 font-serif text-3xl text-bone">
-                Your commission is received.
+                {t("commission.successTitle")}
               </h3>
               <p className="mt-4 max-w-md font-sans text-[14px] font-300 leading-relaxed text-bone/60">
-                Thank you, {form.name.split(" ")[0] || "friend"}. The atelier will
-                review your {productType.toLowerCase()} request
-                {previews.length > 0
-                  ? ` and your ${previews.length} reference photo${previews.length > 1 ? "s" : ""}`
-                  : ""}{" "}
-                and reply within 24 hours with a quote and timeline.
+                {t("commission.successBody", {
+                  name: form.name.trim().split(" ")[0] || t("commission.defaultFriend"),
+                  product: productTypes[productType],
+                  photos:
+                    previews.length > 0
+                      ? t("commission.successPhotos", { count: previews.length })
+                      : "",
+                })}
               </p>
               <button
                 onClick={() => {
@@ -199,7 +187,7 @@ export default function Commission() {
                 }}
                 className="btn-gold mt-9"
               >
-                <span>Start Another</span>
+                <span>{t("commission.startAnother")}</span>
               </button>
             </div>
           ) : (
@@ -208,20 +196,20 @@ export default function Commission() {
               className="border border-white/8 bg-ink/40 p-7 sm:p-10"
             >
               {/* Product type */}
-              <FieldLabel index="01" label="What shall we make?" />
+              <FieldLabel index="01" label={t("commission.q1")} />
               <div className="mb-8 mt-4 flex flex-wrap gap-3">
-                {productTypes.map((t) => (
+                {productTypes.map((label, i) => (
                   <button
                     type="button"
-                    key={t}
-                    onClick={() => setProductType(t)}
+                    key={label}
+                    onClick={() => setProductType(i)}
                     className={`border px-5 py-2.5 font-sans text-[11px] uppercase tracking-wide2 transition-all duration-300 ${
-                      productType === t
+                      productType === i
                         ? "border-gold bg-gold text-ink"
                         : "border-white/12 text-bone/60 hover:border-gold/50 hover:text-bone"
                     }`}
                   >
-                    {t}
+                    {label}
                   </button>
                 ))}
               </div>
@@ -229,14 +217,14 @@ export default function Commission() {
               {/* Marque / model */}
               <div className="grid gap-5 sm:grid-cols-2">
                 <Field
-                  label="Marque & model"
-                  placeholder="e.g. Ferrari 488 / SF90"
+                  label={t("commission.marqueLabel")}
+                  placeholder={t("commission.marquePlaceholder")}
                   value={form.marque}
                   onChange={update("marque")}
                 />
                 <Field
-                  label="Your key or device"
-                  placeholder="e.g. 3-button smart key"
+                  label={t("commission.keyLabel")}
+                  placeholder={t("commission.keyPlaceholder")}
                   value={form.keyModel}
                   onChange={update("keyModel")}
                 />
@@ -244,20 +232,20 @@ export default function Commission() {
 
               {/* Leather */}
               <div className="mt-8">
-                <FieldLabel index="02" label="Choose your leather" />
+                <FieldLabel index="02" label={t("commission.q2")} />
                 <div className="mb-2 mt-4 flex flex-wrap gap-3">
-                  {leatherOptions.map((l) => (
+                  {leatherOptions.map((label, i) => (
                     <button
                       type="button"
-                      key={l}
-                      onClick={() => setLeather(l)}
+                      key={label}
+                      onClick={() => setLeather(i)}
                       className={`border px-4 py-2 font-sans text-[11px] uppercase tracking-wide2 transition-all duration-300 ${
-                        leather === l
+                        leather === i
                           ? "border-gold bg-gold text-ink"
                           : "border-white/12 text-bone/55 hover:border-gold/50 hover:text-bone"
                       }`}
                     >
-                      {l}
+                      {label}
                     </button>
                   ))}
                 </div>
@@ -266,20 +254,20 @@ export default function Commission() {
               {/* Personalisation row */}
               <div className="mt-8 grid gap-5 sm:grid-cols-3">
                 <Field
-                  label="Colour"
-                  placeholder="Match my paint…"
+                  label={t("commission.colourLabel")}
+                  placeholder={t("commission.colourPlaceholder")}
                   value={form.colour}
                   onChange={update("colour")}
                 />
                 <Field
-                  label="Stitch / edge"
-                  placeholder="Contrast canary"
+                  label={t("commission.stitchLabel")}
+                  placeholder={t("commission.stitchPlaceholder")}
                   value={form.stitch}
                   onChange={update("stitch")}
                 />
                 <Field
-                  label="Name / initials"
-                  placeholder="Foil or embroidered"
+                  label={t("commission.nameLabel")}
+                  placeholder={t("commission.namePlaceholder")}
                   value={form.personalisation}
                   onChange={update("personalisation")}
                 />
@@ -287,7 +275,7 @@ export default function Commission() {
 
               {/* Upload */}
               <div className="mt-8">
-                <FieldLabel index="03" label="Share photos of your car & key" />
+                <FieldLabel index="03" label={t("commission.q3")} />
                 <label
                   onDragOver={(e) => {
                     e.preventDefault();
@@ -311,11 +299,13 @@ export default function Commission() {
                   />
                   <Upload className="h-7 w-7 text-gold/70" />
                   <span className="mt-3 font-sans text-[13px] text-bone/70">
-                    Drag & drop images here, or{" "}
-                    <span className="text-gold underline underline-offset-4">browse</span>
+                    {t("commission.dropLead")}
+                    <span className="text-gold underline underline-offset-4">
+                      {t("commission.browse")}
+                    </span>
                   </span>
                   <span className="mt-1 font-sans text-[11px] text-smoke">
-                    Your car, your key, an inspiration shot — anything helps.
+                    {t("commission.dropHint")}
                   </span>
                 </label>
 
@@ -334,7 +324,7 @@ export default function Commission() {
                         <button
                           type="button"
                           onClick={() => removePreview(p.id)}
-                          aria-label={`Remove ${p.name}`}
+                          aria-label={t("commission.removeAria", { name: p.name })}
                           className="absolute right-1 top-1 grid h-6 w-6 place-items-center bg-ink/80 text-bone opacity-0 transition-opacity duration-300 hover:text-gold group-hover:opacity-100"
                         >
                           <Close className="h-3.5 w-3.5" />
@@ -347,34 +337,34 @@ export default function Commission() {
 
               {/* Contact */}
               <div className="mt-9 border-t border-white/8 pt-8">
-                <FieldLabel index="04" label="Where shall we reach you?" />
+                <FieldLabel index="04" label={t("commission.q4")} />
                 <div className="mt-4 grid gap-5 sm:grid-cols-2">
                   <Field
-                    label="Full name"
+                    label={t("commission.fullNameLabel")}
                     required
-                    placeholder="Your name"
+                    placeholder={t("commission.fullNamePlaceholder")}
                     value={form.name}
                     onChange={update("name")}
-                    error={touched && form.name.trim().length <= 1 ? "Please tell us your name" : ""}
+                    error={touched && form.name.trim().length <= 1 ? t("commission.nameError") : ""}
                   />
                   <Field
-                    label="Email"
+                    label={t("commission.emailLabel")}
                     required
                     type="email"
-                    placeholder="you@email.com"
+                    placeholder={t("commission.emailPlaceholder")}
                     value={form.email}
                     onChange={update("email")}
-                    error={touched && !emailValid ? "Enter a valid email" : ""}
+                    error={touched && !emailValid ? t("commission.emailError") : ""}
                   />
                   <Field
-                    label="Phone / WhatsApp"
-                    placeholder="Optional"
+                    label={t("commission.phoneLabel")}
+                    placeholder={t("commission.phonePlaceholder")}
                     value={form.phone}
                     onChange={update("phone")}
                   />
                   <Field
-                    label="Country"
-                    placeholder="For shipping"
+                    label={t("commission.countryLabel")}
+                    placeholder={t("commission.countryPlaceholder")}
                     value={form.country}
                     onChange={update("country")}
                   />
@@ -382,24 +372,24 @@ export default function Commission() {
 
                 <div className="mt-5">
                   <label className="mb-2 block text-[10px] uppercase tracking-wide2 text-smoke">
-                    Anything else?
+                    {t("commission.anythingElse")}
                   </label>
                   <textarea
                     value={form.message}
                     onChange={update("message")}
                     rows={3}
-                    placeholder="Tell us the story, the occasion, the dream…"
+                    placeholder={t("commission.anythingElsePlaceholder")}
                     className="w-full resize-none border border-white/12 bg-transparent px-4 py-3 font-sans text-[14px] text-bone placeholder:text-smoke/60 transition-colors duration-300 focus:border-gold focus:outline-none"
                   />
                 </div>
               </div>
 
               <button type="submit" className="btn-solid mt-8 w-full sm:w-auto">
-                <span>Send My Commission Request</span>
+                <span>{t("commission.submit")}</span>
               </button>
               {touched && !valid && (
                 <p className="mt-3 font-sans text-[12px] text-oxblood">
-                  Please add your name and a valid email so we can reply.
+                  {t("commission.formError")}
                 </p>
               )}
             </form>

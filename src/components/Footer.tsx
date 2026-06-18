@@ -1,21 +1,23 @@
 import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Reveal } from "./Reveal";
 import { ArrowRight, Spark } from "./Icons";
 import { useSectionNav } from "../lib/useSectionNav";
 import { company } from "../data/legal";
 
-const legalLinks: [string, string][] = [
-  ["Impressum", "/impressum"],
-  ["Datenschutz", "/datenschutz"],
-  ["AGB", "/agb"],
-  ["Widerruf", "/widerruf"],
-];
+const legalLinks = [
+  { key: "impressum", to: "/impressum" },
+  { key: "datenschutz", to: "/datenschutz" },
+  { key: "agb", to: "/agb" },
+  { key: "widerruf", to: "/widerruf" },
+] as const;
 
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);
   const onSection = useSectionNav();
+  const { t } = useTranslation();
 
   const subscribe = (e: FormEvent) => {
     e.preventDefault();
@@ -28,17 +30,19 @@ export default function Footer() {
 
       {/* CTA band */}
       <Reveal className="mx-auto max-w-site px-6 py-20 text-center lg:px-10">
-        <span className="eyebrow">Your car deserves it</span>
+        <span className="eyebrow">{t("footer.ctaEyebrow")}</span>
         <h2 className="mx-auto mt-5 max-w-3xl font-serif text-[clamp(2rem,5vw,3.6rem)] leading-[1.06] text-bone text-balance">
-          Let's dress your key in something
-          <span className="italic text-gold-gradient"> unforgettable.</span>
+          {t("footer.ctaTitleLead")}{" "}
+          <span className="italic text-gold-gradient">
+            {t("footer.ctaTitleEmph")}
+          </span>
         </h2>
         <a
           href="/#commission"
           onClick={(e) => onSection(e, "#commission")}
           className="btn-solid mt-9"
         >
-          <span>Commission a Piece</span>
+          <span>{t("footer.ctaButton")}</span>
         </a>
       </Reveal>
 
@@ -57,8 +61,7 @@ export default function Footer() {
             </span>
           </div>
           <p className="mt-5 max-w-xs font-sans text-[13px] font-300 leading-relaxed text-bone/50">
-            Bespoke hand-stitched leather for the world's finest automobiles.
-            Made to order, one piece at a time, in Wuhan since 2015.
+            {t("footer.tagline")}
           </p>
           <div className="mt-5 space-y-1.5 font-sans text-[12px] font-300 text-bone/45">
             <p>No. 7 Baocheng Road, Jiang'an District, Wuhan</p>
@@ -71,35 +74,35 @@ export default function Footer() {
         </div>
 
         <FooterCol
-          title="Explore"
+          title={t("footer.exploreTitle")}
           links={[
-            ["Collection", "#collection"],
-            ["Bespoke Process", "#process"],
-            ["Leathers", "#leathers"],
-            ["Investment", "#pricing"],
-            ["The Maker", "#maker"],
+            [t("footer.explore.collection"), "#collection"],
+            [t("footer.explore.process"), "#process"],
+            [t("footer.explore.leathers"), "#leathers"],
+            [t("footer.explore.pricing"), "#pricing"],
+            [t("footer.explore.maker"), "#maker"],
           ]}
         />
         <FooterCol
-          title="Atelier"
+          title={t("footer.atelierTitle")}
           links={[
-            ["Commission", "#commission"],
-            ["Questions", "#faq"],
-            ["Instagram", "https://instagram.com/leecueleather"],
-            ["Email Us", "mailto:lee.q.cool@gmail.com"],
+            [t("footer.atelier.commission"), "#commission"],
+            [t("footer.atelier.questions"), "#faq"],
+            [t("footer.atelier.instagram"), "https://instagram.com/leecueleather"],
+            [t("footer.atelier.email"), "mailto:lee.q.cool@gmail.com"],
           ]}
         />
 
         <div>
-          <h4 className="text-[10px] uppercase tracking-luxe text-smoke">The List</h4>
+          <h4 className="text-[10px] uppercase tracking-luxe text-smoke">
+            {t("footer.listTitle")}
+          </h4>
           <p className="mt-4 font-sans text-[13px] font-300 leading-relaxed text-bone/50">
-            New skins, rare hides and atelier stories — plus giveaways, fan
-            co-creations and anniversary events for our WeChat circle.
-            Occasionally, never often.
+            {t("footer.listCopy")}
           </p>
           {done ? (
             <p className="mt-4 flex items-center gap-2 font-serif text-lg italic text-gold-gradient">
-              Welcome to the list.
+              {t("footer.subscribed")}
               <Spark className="h-3.5 w-3.5 text-gold" />
             </p>
           ) : (
@@ -108,7 +111,7 @@ export default function Footer() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email"
+                placeholder={t("footer.emailPlaceholder")}
                 className="w-full bg-transparent px-4 py-3 font-sans text-[13px] text-bone placeholder:text-smoke/60 focus:outline-none"
               />
               <button
@@ -127,23 +130,25 @@ export default function Footer() {
       <div className="border-t border-white/5">
         <div className="mx-auto max-w-site px-6 py-7 lg:px-10">
           <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 sm:justify-start">
-            {legalLinks.map(([label, to]) => (
+            {legalLinks.map(({ key, to }) => (
               <Link
                 key={to}
                 to={to}
                 className="font-sans text-[11px] uppercase tracking-wide2 text-bone/55 transition-colors duration-300 hover:text-gold"
               >
-                {label}
+                {t(`footer.legal.${key}`)}
               </Link>
             ))}
           </nav>
           <div className="mt-5 flex flex-col items-center justify-between gap-2 border-t border-white/5 pt-5 text-center sm:flex-row sm:text-left">
             <span className="text-[11px] tracking-wide2 text-smoke">
-              © {new Date().getFullYear()} LEECUE ATELIER · operated by{" "}
-              {company.legalName}
+              {t("footer.copyright", {
+                year: new Date().getFullYear(),
+                name: company.legalName,
+              })}
             </span>
             <span className="text-[11px] tracking-wide2 text-smoke">
-              Handmade · Genuine Leather · Worldwide Shipping
+              {t("footer.madeline")}
             </span>
           </div>
         </div>
@@ -201,7 +206,7 @@ function FooterCol({
             );
           }
 
-          return <li key={label}>{node}</li>;
+          return <li key={href}>{node}</li>;
         })}
       </ul>
     </div>

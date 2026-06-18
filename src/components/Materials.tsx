@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { leathers, leatherColours } from "../data/products";
 import { Reveal, StaggerGroup, StaggerItem } from "./Reveal";
 
@@ -15,6 +16,7 @@ const swatches: Record<string, string> = {
 };
 
 export default function Materials() {
+  const { t } = useTranslation();
   const [colourImgOk, setColourImgOk] = useState(true);
 
   return (
@@ -22,16 +24,16 @@ export default function Materials() {
       <div className="absolute inset-0 bg-gradient-to-b from-ink via-transparent to-ink" />
       <div className="relative mx-auto max-w-site px-6 lg:px-10">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="eyebrow">The Skin Library</span>
+          <span className="eyebrow">{t("materials.eyebrow")}</span>
           <h2 className="mt-5 font-serif text-[clamp(2.2rem,5vw,3.8rem)] leading-[1.04] text-bone">
-            Eight leathers.
-            <span className="italic text-gold-gradient"> Infinite character.</span>
+            {t("materials.titleLead")}
+            <span className="italic text-gold-gradient">
+              {" "}
+              {t("materials.titleEmph")}
+            </span>
           </h2>
           <p className="mx-auto mt-6 max-w-lg font-sans text-[14px] font-300 leading-relaxed text-bone/60">
-            We work only with the European houses that supply the great maisons
-            — the same tanneries behind Hermès, Louis Vuitton, Gucci and Celine.
-            Choose a skin below, or ask: if it can be tanned, we can very likely
-            source it.
+            {t("materials.subcopy")}
           </p>
         </Reveal>
 
@@ -53,7 +55,7 @@ export default function Materials() {
               <span className="eyebrow mt-7 block">{l.origin}</span>
               <h3 className="mt-2 font-serif text-2xl text-bone">{l.name}</h3>
               <p className="mt-3 font-sans text-[13px] font-300 leading-relaxed text-bone/55">
-                {l.blurb}
+                {t(`materials.blurbs.${l.name}`)}
               </p>
             </StaggerItem>
           ))}
@@ -62,15 +64,16 @@ export default function Materials() {
         {/* About colour — the standing palette */}
         <Reveal className="mt-24 lg:mt-28">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow">About Colour</span>
+            <span className="eyebrow">{t("materials.colour.eyebrow")}</span>
             <h3 className="mt-5 font-serif text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.08] text-bone">
-              One skin,
-              <span className="italic text-gold-gradient"> a hundred colours.</span>
+              {t("materials.colour.titleLead")}
+              <span className="italic text-gold-gradient">
+                {" "}
+                {t("materials.colour.titleEmph")}
+              </span>
             </h3>
             <p className="mx-auto mt-5 max-w-md font-sans text-[14px] font-300 leading-relaxed text-bone/60">
-              A standing palette of over one hundred dyes — from Sakura Rose and
-              Tiffany to Bordeaux and Noir — each one matched, mixed or
-              paint-matched to your car.
+              {t("materials.colour.subcopy")}
             </p>
           </div>
 

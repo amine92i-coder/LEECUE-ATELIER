@@ -1,23 +1,14 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Reveal, StaggerGroup, StaggerItem } from "./Reveal";
 
-const pillars = [
-  {
-    title: "One Pair of Hands",
-    body: "Every commission is cut, skived, saddle-stitched and burnished by a single artisan — never a production line.",
-  },
-  {
-    title: "Hermès-Grade Hides",
-    body: "French Sully goatskin, Italian Pomari and Bonaudo calf, HCP crocodile and Klein Karoo ostrich — the very tanneries behind the great maisons.",
-  },
-  {
-    title: "Endlessly Yours",
-    body: "Your skin, your colour, your stitch, your name, your hardware. Nothing about your piece is fixed but the quality.",
-  },
-];
-
 export default function Manifesto() {
+  const { t } = useTranslation();
   const [texOk, setTexOk] = useState(true);
+  const pillars = t("manifesto.pillars", { returnObjects: true }) as {
+    title: string;
+    body: string;
+  }[];
 
   return (
     <section className="relative overflow-hidden bg-coal py-28 lg:py-36">
@@ -34,14 +25,15 @@ export default function Manifesto() {
 
       <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-10">
         <Reveal>
-          <span className="eyebrow">The Atelier Belief</span>
+          <span className="eyebrow">{t("manifesto.eyebrow")}</span>
         </Reveal>
         <Reveal delay={120}>
           <p className="mx-auto mt-8 max-w-3xl font-serif text-[clamp(1.6rem,3.6vw,2.9rem)] font-400 leading-[1.25] text-bone">
-            A key is the first thing you touch each morning and the last thing you
-            set down at night. The object that commands a great car should feel
-            <span className="italic text-gold-gradient"> every bit as considered </span>
-            as the machine itself.
+            {t("manifesto.quoteLead")}
+            <span className="italic text-gold-gradient">
+              {t("manifesto.quoteEmph")}
+            </span>
+            {t("manifesto.quoteTail")}
           </p>
         </Reveal>
       </div>

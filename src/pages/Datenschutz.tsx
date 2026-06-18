@@ -5,7 +5,6 @@ export default function Datenschutz() {
   return (
     <LegalPage
       docTitle="Datenschutzerklärung"
-      eyebrow="Rechtliches · Privacy"
       title="Datenschutzerklärung"
       intro="Diese Erklärung informiert Sie über die Verarbeitung personenbezogener Daten gemäß DSGVO. · This policy explains how we process personal data under the GDPR."
     >

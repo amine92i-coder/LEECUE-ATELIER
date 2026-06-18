@@ -6,7 +6,6 @@ export default function AGB() {
   return (
     <LegalPage
       docTitle="AGB"
-      eyebrow="Rechtliches · Terms"
       title={
         <>
           Allgemeine

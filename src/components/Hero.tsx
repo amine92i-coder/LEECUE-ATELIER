@@ -6,6 +6,7 @@ import {
   useTransform,
   type Variants,
 } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { EASE_SILK } from "./Reveal";
 
 const container: Variants = {
@@ -27,6 +28,7 @@ export default function Hero() {
   const [heroOk, setHeroOk] = useState(true);
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
+  const { t } = useTranslation();
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -85,20 +87,18 @@ export default function Hero() {
               style={{ originX: 0 }}
               className="h-px w-12 bg-gold/70"
             />
-            <span className="eyebrow">
-              Since 2015 · Hand-Stitched · Worldwide
-            </span>
+            <span className="eyebrow">{t("hero.eyebrow")}</span>
           </motion.div>
 
           <h1 className="font-serif text-[clamp(2.9rem,8vw,6.4rem)] font-500 leading-[0.95] text-bone text-shadow-luxe text-balance">
             <motion.span variants={item} className="block">
-              Bespoke leather,
+              {t("hero.titleLine1")}
             </motion.span>
             <motion.span
               variants={item}
               className="block italic text-gold-gradient"
             >
-              worthy of the marque.
+              {t("hero.titleLine2")}
             </motion.span>
           </h1>
 
@@ -106,10 +106,7 @@ export default function Hero() {
             variants={item}
             className="mt-8 max-w-xl font-sans text-[15px] font-300 leading-relaxed text-bone/70"
           >
-            Hand-stitched key cases, phone cases and accessories in French
-            crocodile, Klein Karoo ostrich, python and fine Sully goatskin —
-            patterned to your exact key, personalised to your taste, and built to
-            order by a single master craftsman.
+            {t("hero.subcopy")}
           </motion.p>
 
           <motion.div
@@ -117,10 +114,10 @@ export default function Hero() {
             className="mt-11 flex flex-col gap-4 sm:flex-row sm:items-center"
           >
             <a href="#commission" className="btn-solid">
-              <span>Commission a Piece</span>
+              <span>{t("hero.commission")}</span>
             </a>
             <a href="#collection" className="btn-gold">
-              <span>Explore the Collection</span>
+              <span>{t("hero.explore")}</span>
             </a>
           </motion.div>
         </motion.div>
@@ -134,7 +131,7 @@ export default function Hero() {
         className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-3 sm:flex"
       >
         <span className="text-[10px] uppercase tracking-luxe text-smoke">
-          Scroll
+          {t("hero.scroll")}
         </span>
         <span className="relative h-12 w-px overflow-hidden bg-white/15">
           <span className="absolute inset-x-0 top-0 h-1/2 animate-floaty bg-gold" />

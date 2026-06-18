@@ -5,7 +5,6 @@ export default function Impressum() {
   return (
     <LegalPage
       docTitle="Impressum"
-      eyebrow="Rechtliches · Legal Notice"
       title="Impressum"
       intro="Angaben gemäß § 5 TMG · Information pursuant to § 5 German Telemedia Act (TMG)."
     >

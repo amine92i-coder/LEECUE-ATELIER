@@ -5,7 +5,6 @@ export default function Widerruf() {
   return (
     <LegalPage
       docTitle="Widerrufsbelehrung"
-      eyebrow="Rechtliches · Cancellation"
       title="Widerrufsbelehrung"
       intro="Informationen zum Widerrufsrecht für Verbraucher. · Information on the right of withdrawal for consumers."
     >

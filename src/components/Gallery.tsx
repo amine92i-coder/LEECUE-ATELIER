@@ -1,8 +1,17 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { products, categories, type Category } from "../data/products";
 import { Reveal, StaggerGroup, StaggerItem } from "./Reveal";
 
+const catKey: Record<string, string> = {
+  All: "all",
+  "Key Cases": "keyCases",
+  "Phone Cases": "phoneCases",
+  "Charms & Lanyards": "charms",
+};
+
 export default function Gallery() {
+  const { t } = useTranslation();
   const [filter, setFilter] = useState<Category | "All">("All");
   const shown =
     filter === "All" ? products : products.filter((p) => p.category === filter);
@@ -12,17 +21,18 @@ export default function Gallery() {
       <div className="mx-auto max-w-site px-6 lg:px-10">
         <div className="flex flex-col items-end justify-between gap-8 md:flex-row md:items-end">
           <Reveal className="max-w-xl">
-            <span className="eyebrow">The Collection</span>
+            <span className="eyebrow">{t("gallery.eyebrow")}</span>
             <h2 className="mt-5 font-serif text-[clamp(2.2rem,5vw,3.8rem)] leading-[1.02] text-bone">
-              Selected works,
+              {t("gallery.titleLead")}
               <br />
-              <span className="italic text-gold-gradient">straight from the bench.</span>
+              <span className="italic text-gold-gradient">
+                {t("gallery.titleEmph")}
+              </span>
             </h2>
           </Reveal>
           <Reveal delay={120} className="max-w-sm md:text-right">
             <p className="font-sans text-[14px] font-300 leading-relaxed text-bone/60">
-              Each piece below was hand-built for a real client. Yours will be
-              made the same way — to your marque, your skin, your name.
+              {t("gallery.subcopy")}
             </p>
           </Reveal>
         </div>
@@ -39,7 +49,7 @@ export default function Gallery() {
                   : "border-white/10 text-bone/60 hover:border-gold/50 hover:text-bone"
               }`}
             >
-              {c}
+              {t(`gallery.filters.${catKey[c]}`)}
             </button>
           ))}
         </Reveal>
@@ -66,7 +76,7 @@ export default function Gallery() {
 
                 {p.bespoke && (
                   <span className="absolute left-4 top-4 border border-gold/60 bg-ink/60 px-3 py-1 text-[9px] uppercase tracking-luxe text-gold backdrop-blur-sm">
-                    Personalised
+                    {t("gallery.personalised")}
                   </span>
                 )}
 
@@ -79,7 +89,7 @@ export default function Gallery() {
                     {p.leather}
                   </div>
                   <p className="mt-3 max-h-0 overflow-hidden font-sans text-[13px] font-300 leading-relaxed text-bone/0 transition-all duration-500 ease-silk group-hover:max-h-24 group-hover:text-bone/70">
-                    {p.note}
+                    {t(`gallery.notes.${p.id}`)}
                   </p>
                 </div>
               </div>
@@ -90,11 +100,10 @@ export default function Gallery() {
         <Reveal delay={120} className="mt-16 flex flex-col items-center gap-6 text-center">
           <div className="hairline w-40" />
           <p className="max-w-md font-serif text-xl italic text-bone/70">
-            Don't see your marque? We have almost certainly made it — or will make
-            it for the first time.
+            {t("gallery.closing")}
           </p>
           <a href="#commission" className="btn-gold">
-            <span>Start Your Commission</span>
+            <span>{t("gallery.cta")}</span>
           </a>
         </Reveal>
       </div>

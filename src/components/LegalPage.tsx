@@ -1,5 +1,6 @@
 import { useEffect, type ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ArrowRight } from "./Icons";
 import { legalLastUpdated } from "../data/legal";
 
@@ -24,7 +25,6 @@ const prose = [
 interface LegalPageProps {
   /** Tab/title, e.g. "Impressum" */
   docTitle: string;
-  eyebrow: string;
   title: ReactNode;
   intro?: ReactNode;
   children: ReactNode;
@@ -32,11 +32,12 @@ interface LegalPageProps {
 
 export default function LegalPage({
   docTitle,
-  eyebrow,
   title,
   intro,
   children,
 }: LegalPageProps) {
+  const { t } = useTranslation();
+
   useEffect(() => {
     const prev = document.title;
     document.title = `${docTitle} · LEECUE ATELIER`;
@@ -54,11 +55,11 @@ export default function LegalPage({
           className="group inline-flex items-center gap-2 font-sans text-[11px] uppercase tracking-wide2 text-bone/50 transition-colors hover:text-gold"
         >
           <ArrowRight className="h-3.5 w-3.5 -scale-x-100" />
-          <span>Zurück zur Startseite · Back to home</span>
+          <span>{t("legal.backHome")}</span>
         </Link>
 
         <header className="mt-8 border-b border-white/8 pb-9">
-          <span className="eyebrow">{eyebrow}</span>
+          <span className="eyebrow">{t("legal.eyebrow")}</span>
           <h1 className="mt-4 font-serif text-[clamp(2rem,5vw,3.2rem)] leading-[1.05] text-bone">
             {title}
           </h1>
@@ -68,11 +69,14 @@ export default function LegalPage({
             </p>
           )}
           <p className="mt-5 font-sans text-[11px] uppercase tracking-wide2 text-smoke">
-            Stand · Last updated: {legalLastUpdated}
+            {t("legal.lastUpdated")}: {legalLastUpdated}
           </p>
         </header>
 
-        <div className={`mt-10 ${prose}`}>{children}</div>
+        <div className={`mt-10 ${prose}`}>
+          <div className="callout">{t("legal.bindingNotice")}</div>
+          {children}
+        </div>
       </div>
     </main>
   );

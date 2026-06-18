@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { useSectionNav } from "../lib/useSectionNav";
 import { EASE_SILK } from "./Reveal";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const links = [
-  { label: "Collection", href: "#collection" },
-  { label: "Bespoke", href: "#process" },
-  { label: "Leathers", href: "#leathers" },
-  { label: "Investment", href: "#pricing" },
-  { label: "The Maker", href: "#maker" },
-  { label: "Journal", href: "#faq" },
-];
+  { key: "collection", href: "#collection" },
+  { key: "bespoke", href: "#process" },
+  { key: "leathers", href: "#leathers" },
+  { key: "investment", href: "#pricing" },
+  { key: "maker", href: "#maker" },
+  { key: "journal", href: "#faq" },
+] as const;
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const onSection = useSectionNav();
+  const { t } = useTranslation();
 
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, {
@@ -75,20 +78,21 @@ export default function Nav() {
                   onClick={(e) => onSection(e, l.href)}
                   className="group relative font-sans text-[12px] uppercase tracking-wide2 text-bone/75 transition-colors duration-300 hover:text-bone"
                 >
-                  {l.label}
+                  {t(`nav.${l.key}`)}
                   <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-gold transition-all duration-500 ease-silk group-hover:w-full" />
                 </a>
               </li>
             ))}
           </ul>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
+            <LanguageSwitcher className="hidden lg:flex" />
             <a
               href="/#commission"
               onClick={(e) => onSection(e, "#commission")}
               className="hidden btn-gold !px-6 !py-3 sm:inline-flex"
             >
-              <span>Commission a Piece</span>
+              <span>{t("nav.commission")}</span>
             </a>
             <button
               aria-label="Menu"
@@ -118,26 +122,27 @@ export default function Nav() {
         {/* Mobile drawer */}
         <div
           className={`overflow-hidden border-t border-white/5 bg-ink/95 backdrop-blur-md transition-all duration-500 ease-silk lg:hidden ${
-            open ? "max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
+            open ? "max-h-[34rem] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
           <ul className="flex flex-col gap-1 px-6 py-4">
-            {[...links, { label: "Commission a Piece", href: "#commission" }].map(
-              (l) => (
-                <li key={l.href}>
-                  <a
-                    href={`/${l.href}`}
-                    onClick={(e) => {
-                      onSection(e, l.href);
-                      setOpen(false);
-                    }}
-                    className="block py-3 font-sans text-sm uppercase tracking-wide2 text-bone/80"
-                  >
-                    {l.label}
-                  </a>
-                </li>
-              )
-            )}
+            {[...links, { key: "commission", href: "#commission" }].map((l) => (
+              <li key={l.href}>
+                <a
+                  href={`/${l.href}`}
+                  onClick={(e) => {
+                    onSection(e, l.href);
+                    setOpen(false);
+                  }}
+                  className="block py-3 font-sans text-sm uppercase tracking-wide2 text-bone/80"
+                >
+                  {t(`nav.${l.key}`)}
+                </a>
+              </li>
+            ))}
+            <li className="mt-2 border-t border-white/5 pt-4">
+              <LanguageSwitcher />
+            </li>
           </ul>
         </div>
       </motion.header>

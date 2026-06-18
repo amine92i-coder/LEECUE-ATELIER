@@ -41,7 +41,7 @@ export const products: Product[] = [
   },
   {
     id: "lamborghini-fiona",
-    name: "Giallo · Personalised",
+    name: "Giallo",
     marque: "Lamborghini",
     category: "Key Cases",
     leather: "Full-Grain Calf",
@@ -87,7 +87,7 @@ export const products: Product[] = [
   },
   {
     id: "cadillac-himalayan",
-    name: "Blanc · Personalised",
+    name: "Blanc",
     marque: "Cadillac",
     category: "Key Cases",
     leather: "Himalayan Crocodile",

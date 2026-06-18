@@ -1,9 +1,15 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { processSteps } from "../data/products";
 import { Reveal, StaggerGroup, StaggerItem } from "./Reveal";
 
 export default function Process() {
+  const { t } = useTranslation();
   const [imgOk, setImgOk] = useState(true);
+  const steps = t("process.steps", { returnObjects: true }) as {
+    title: string;
+    body: string;
+  }[];
 
   return (
     <section id="process" className="relative bg-ink py-28 lg:py-36">
@@ -19,9 +25,11 @@ export default function Process() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
-              <span className="eyebrow !text-bone/60">Made to Order</span>
+              <span className="eyebrow !text-bone/60">
+                {t("process.badgeEyebrow")}
+              </span>
               <p className="mt-2 font-serif text-2xl italic text-bone">
-                Two to four weeks, from bench to your door.
+                {t("process.badgeLine")}
               </p>
             </div>
           </div>
@@ -32,29 +40,32 @@ export default function Process() {
         {/* Steps */}
         <div>
           <Reveal>
-            <span className="eyebrow">The Bespoke Process</span>
+            <span className="eyebrow">{t("process.eyebrow")}</span>
             <h2 className="mt-5 font-serif text-[clamp(2.2rem,5vw,3.6rem)] leading-[1.04] text-bone">
-              From your key
+              {t("process.titleLead")}
               <br />
-              <span className="italic text-gold-gradient">to your hands.</span>
+              <span className="italic text-gold-gradient">
+                {t("process.titleEmph")}
+              </span>
             </h2>
             <p className="mt-6 max-w-md font-sans text-[14px] font-300 leading-relaxed text-bone/60">
-              Anything can be customised — and the process could not be simpler.
-              Send us a photo of your car and your key, and we take it from there.
+              {t("process.subcopy")}
             </p>
           </Reveal>
 
           <StaggerGroup className="mt-12 flex flex-col" stagger={0.09}>
-            {processSteps.map((s) => (
+            {processSteps.map((s, i) => (
               <StaggerItem key={s.index}>
                 <div className="group flex gap-7 border-t border-white/8 py-8 transition-colors duration-500 hover:border-gold/30">
                   <span className="font-serif text-3xl text-gold/50 transition-colors duration-500 group-hover:text-gold">
                     {s.index}
                   </span>
                   <div>
-                    <h3 className="font-serif text-2xl text-bone">{s.title}</h3>
+                    <h3 className="font-serif text-2xl text-bone">
+                      {steps[i].title}
+                    </h3>
                     <p className="mt-2 max-w-md font-sans text-[14px] font-300 leading-relaxed text-bone/60">
-                      {s.body}
+                      {steps[i].body}
                     </p>
                   </div>
                 </div>
@@ -64,7 +75,7 @@ export default function Process() {
 
           <Reveal delay={120}>
             <a href="#commission" className="btn-solid mt-10">
-              <span>Begin Your Commission</span>
+              <span>{t("process.cta")}</span>
             </a>
           </Reveal>
         </div>

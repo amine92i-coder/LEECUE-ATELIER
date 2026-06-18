@@ -1,28 +1,36 @@
 import { useState } from "react";
-import { faqs } from "../data/products";
+import { useTranslation } from "react-i18next";
 import { Reveal } from "./Reveal";
 
+interface QA {
+  q: string;
+  a: string;
+}
+
 export default function Faq() {
+  const { t } = useTranslation();
   const [open, setOpen] = useState<number | null>(0);
+  const items = t("faq.items", { returnObjects: true }) as QA[];
 
   return (
     <section id="faq" className="relative bg-ink py-28 lg:py-36">
       <div className="mx-auto grid max-w-site gap-14 px-6 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20 lg:px-10">
         <Reveal>
-          <span className="eyebrow">The Journal</span>
+          <span className="eyebrow">{t("faq.eyebrow")}</span>
           <h2 className="mt-5 font-serif text-[clamp(2.2rem,5vw,3.6rem)] leading-[1.04] text-bone">
-            Questions,
+            {t("faq.titleLead")}
             <br />
-            <span className="italic text-gold-gradient">answered.</span>
+            <span className="italic text-gold-gradient">
+              {t("faq.titleEmph")}
+            </span>
           </h2>
           <p className="mt-6 max-w-xs font-sans text-[14px] font-300 leading-relaxed text-bone/55">
-            Anything we have not covered, simply ask — the atelier replies
-            personally to every message.
+            {t("faq.subcopy")}
           </p>
         </Reveal>
 
         <div className="border-t border-white/8">
-          {faqs.map((f, i) => {
+          {items.map((f, i) => {
             const isOpen = open === i;
             return (
               <Reveal key={f.q} delay={(i % 4) * 60}>

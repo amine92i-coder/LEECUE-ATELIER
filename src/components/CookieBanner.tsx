@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { EASE_SILK } from "./Reveal";
 
 const STORAGE_KEY = "leecue-cookie-consent";
 
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     try {
@@ -31,7 +33,7 @@ export default function CookieBanner() {
       {visible && (
         <motion.div
           role="dialog"
-          aria-label="Cookie-Hinweis · Cookie notice"
+          aria-label={t("cookie.label")}
           aria-live="polite"
           initial={{ y: 120, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -41,15 +43,12 @@ export default function CookieBanner() {
         >
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
             <p className="font-sans text-[12.5px] font-300 leading-relaxed text-bone/70">
-              Wir verwenden nur technisch notwendige Cookies, um diese Website
-              und die sichere Zahlung über Stripe bereitzustellen. · We use only
-              strictly necessary cookies to run this site and process payments
-              securely via Stripe.{" "}
+              {t("cookie.text")}{" "}
               <Link
                 to="/datenschutz"
                 className="whitespace-nowrap text-gold underline decoration-gold/40 underline-offset-2 hover:decoration-gold"
               >
-                Datenschutz / Privacy
+                {t("cookie.privacy")}
               </Link>
             </p>
 
@@ -59,14 +58,14 @@ export default function CookieBanner() {
                 onClick={() => choose("essential")}
                 className="cursor-pointer whitespace-nowrap border border-white/15 px-5 py-2.5 font-sans text-[11px] uppercase tracking-wide2 text-bone/70 transition-colors duration-300 hover:border-white/30 hover:text-bone"
               >
-                Nur notwendige
+                {t("cookie.essential")}
               </button>
               <button
                 type="button"
                 onClick={() => choose("accepted")}
                 className="btn-gold !px-6 !py-2.5"
               >
-                <span>Akzeptieren</span>
+                <span>{t("cookie.accept")}</span>
               </button>
             </div>
           </div>

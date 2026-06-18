@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { SUPPORTED } from "../i18n";
 
-/** DE / FR / IT / JA toggle. English stays a silent fallback. */
+/** EN / DE / FR / IT / JA toggle. English is the primary language. */
 export default function LanguageSwitcher({
   className = "",
 }: {
